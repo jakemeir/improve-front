@@ -49,3 +49,11 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+.gitignore
+.prettierignore
+config-overrides.js
+extensions.txt
+nstall-extensions.ps1
+.env
