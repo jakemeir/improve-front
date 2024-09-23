@@ -1,8 +1,0 @@
-# Ignore artifacts: 
-build 
-public
-build-development
-build-qa
-build-stage
-build-production
-.prettierrc.js
