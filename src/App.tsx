@@ -1,10 +1,12 @@
 import React from 'react';
-import CounterTest from './components/CounterTest';
+import CreateUser from './components/CreateUser';
+import './index.css'
+
 
 const App: React.FC = () => {
   return (
     <div>
-      <CounterTest/>
+      <CreateUser/>
     </div>
   );
 };
