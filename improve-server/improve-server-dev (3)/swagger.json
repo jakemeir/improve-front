@@ -1,0 +1,9 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Improve API",
+      "description": "API for the improve client",
+      "version": "1.0.0"
+    }
+   
+  }
