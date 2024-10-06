@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import UpdateUser from './components/UpdateUser';
+import CreateUser from './components/CreateUser';
+import './index.css'
+
 
 const App: React.FC = () => {
 
@@ -25,6 +28,7 @@ const App: React.FC = () => {
         onClose={() => setModelOpen(false)}
         initialUser={someUserData} 
       />
+      <CreateUser/>
     </div>
   );
 };
