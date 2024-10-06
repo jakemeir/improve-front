@@ -1,10 +1,30 @@
-import React from 'react';
-import CounterTest from './components/CounterTest';
+import React, { useState } from 'react';
+import UpdateUser from './components/UpdateUser';
 
 const App: React.FC = () => {
+
+  const [isModelOpen, setModelOpen] = useState(false);
+
+  // An example of a user in the list
+  const someUserData = {
+    firstName: "Dummy",
+    lastName: "User",
+    email: "dummyuser@example.com",
+    phone: "054-1234567",
+    password: "password123",
+    role: "user"
+};
+
+
   return (
     <div>
-      <CounterTest/>
+      {/* להציב בכפתור את האייקון שאיזי הכין */}
+      <button onClick={() => setModelOpen(true)}>Update User</button> 
+      <UpdateUser 
+        isOpen={isModelOpen} 
+        onClose={() => setModelOpen(false)}
+        initialUser={someUserData} 
+      />
     </div>
   );
 };
