@@ -21,6 +21,7 @@ const App: React.FC = () => {
 
   return (
     <div>
+      <CreateUser/>
       {/* להציב בכפתור את האייקון שאיזי הכין */}
       <button onClick={() => setModelOpen(true)}>Update User</button> 
       <UpdateUser 
@@ -28,7 +29,6 @@ const App: React.FC = () => {
         onClose={() => setModelOpen(false)}
         initialUser={someUserData} 
       />
-      <CreateUser/>
     </div>
   );
 };
