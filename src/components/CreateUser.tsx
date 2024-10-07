@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CreateUser.css';
+import axios from 'axios';
 
 const RegisterUser: React.FC = () => {
   // Define state for form inputs
@@ -50,18 +51,15 @@ const RegisterUser: React.FC = () => {
     };
 
     try {
-      // Simulate a request to the server
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.post('http://localhost:8080/users', {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        password: password
+      })
 
-      const result = await response.json();
-
-      if (response.ok) {
+      if (response.data.isSuccessful) {
         // If successful, clear the form
         setFirstName('');
         setLastName('');
@@ -71,7 +69,7 @@ const RegisterUser: React.FC = () => {
         setErrors({});  // Clear any previous errors
       } else {
         // If there are errors, update the errors state
-        setErrors(result.errors || {});
+        setErrors(response.data.displayMessage || {});
       }
     } catch (error) {
       console.error('Failed to submit form:', error);
