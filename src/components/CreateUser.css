@@ -61,3 +61,42 @@ select:focus {
     outline: none;
     border-color: #007bff;
 }
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .popup-content button {
+    margin: 10px;
+  }
+  
+  .popup-content ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  /* Error message styling */
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+  }
+  
+  /* Add red border for input with errors */
+  .input-error {
+    border: 1px solid red;
+  }
+  
+  

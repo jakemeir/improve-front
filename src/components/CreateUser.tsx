@@ -9,26 +9,77 @@ const RegisterUser: React.FC = () => {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
 
+  // State to store error messages
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  // State to check if form is submitting
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Email validation function
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic regex pattern for email validation
+    return emailRegex.test(email);
+  };
+
   // Define the submit handler
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // For now, simply log the form data
-    console.log({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      password: password,
-    });
+    // Reset any previous errors
+    setErrors({});
 
-    // Clear form after submission
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
-    setPhone('');
-    
+    // Validate email
+    if (!validateEmail(email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: 'Please enter a valid email address.',
+      }));
+      return; // Stop form submission if email is invalid
+    }
+
+    // Set the form as submitting
+    setIsSubmitting(true);
+
+    // Prepare data to send
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      password,
+    };
+
+    try {
+      // Simulate a request to the server
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // If successful, clear the form
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setPhone('');
+        setErrors({});  // Clear any previous errors
+      } else {
+        // If there are errors, update the errors state
+        setErrors(result.errors || {});
+      }
+    } catch (error) {
+      console.error('Failed to submit form:', error);
+      setErrors({ global: 'Something went wrong. Please try again.' });
+    } finally {
+      // Re-enable the submit button
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -45,6 +96,7 @@ const RegisterUser: React.FC = () => {
             placeholder="First Name"
             required
           />
+          {errors.firstName && <p className="error-message">{errors.firstName}</p>}
         </div>
         <div>
           <label htmlFor="lastName">Last Name</label>
@@ -56,6 +108,7 @@ const RegisterUser: React.FC = () => {
             placeholder="Last Name"
             required
           />
+          {errors.lastName && <p className="error-message">{errors.lastName}</p>}
         </div>
         <div>
           <label htmlFor="email">Email</label>
@@ -65,8 +118,10 @@ const RegisterUser: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your Email"
+            className={errors.email ? 'input-error' : ''}  // Conditionally add error class
             required
           />
+          {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
         <div>
           <label htmlFor="phone">Phone</label>
@@ -78,8 +133,8 @@ const RegisterUser: React.FC = () => {
             placeholder="Enter your Phone"
             required
           />
+          {errors.phone && <p className="error-message">{errors.phone}</p>}
         </div>
-        
         <div>
           <label htmlFor="password">Password</label>
           <input
@@ -90,8 +145,12 @@ const RegisterUser: React.FC = () => {
             placeholder="Password"
             required
           />
+          {errors.password && <p className="error-message">{errors.password}</p>}
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Submitting...' : 'Register'}
+        </button>
+        {errors.global && <p className="error-message">{errors.global}</p>}
       </form>
     </div>
   );
