@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import UpdateUser from './components/UpdateUser';
 import CreateUser from './components/CreateUser';
+import UpdateUser from './components/UpdateUser';
 import './index.css'
 
 
@@ -13,7 +13,7 @@ const App: React.FC = () => {
     firstName: "Dummy",
     lastName: "User",
     email: "dummyuser@example.com",
-    phone: "054-1234567",
+    phone: "0541234567",
     password: "password123",
     role: "user"
 };

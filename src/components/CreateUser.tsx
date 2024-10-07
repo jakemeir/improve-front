@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CreateUser.css';
+import '../style/CreateUser.css';
 
 const RegisterUser: React.FC = () => {
   // Define state for form inputs
