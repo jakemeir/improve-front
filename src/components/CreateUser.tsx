@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './CreateUser.css';
 import axios from 'axios';
+import '../style/CreateUser.css';
 
 const RegisterUser: React.FC = () => {
   const [firstName, setFirstName] = useState('');
