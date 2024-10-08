@@ -3,45 +3,21 @@ import './CreateUser.css';
 import axios from 'axios';
 
 const RegisterUser: React.FC = () => {
-  // Define state for form inputs
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
+  
+  const [errors, setErrors] = useState<string>('');
 
-  // State to store error messages
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  // State to check if form is submitting
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Email validation function
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic regex pattern for email validation
-    return emailRegex.test(email);
-  };
-
-  // Define the submit handler
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // Reset any previous errors
-    setErrors({});
-
-    // Validate email
-    if (!validateEmail(email)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: 'Please enter a valid email address.',
-      }));
-      return; // Stop form submission if email is invalid
-    }
-
-    // Set the form as submitting
+    setErrors("");
     setIsSubmitting(true);
-
-    // Prepare data to send
+  
     const formData = {
       firstName,
       lastName,
@@ -49,36 +25,28 @@ const RegisterUser: React.FC = () => {
       phone,
       password,
     };
-
+  
     try {
-      const response = await axios.post('http://localhost:8080/users', {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        password: password
-      })
-
-      if (response.data.isSuccessful) {
-        // If successful, clear the form
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setPhone('');
-        setErrors({});  // Clear any previous errors
+      const response = await axios.post('http://localhost:8080/users', formData);
+  
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPassword('');
+      setPhone('');
+      setErrors('');
+    } catch (error: any) {
+      if (error.response) {
+        console.error('Failed to submit form:', error.response.data);
+        setErrors(error.response.data.displayMessage || "An error occurred during form submission.");
       } else {
-        // If there are errors, update the errors state
-        setErrors(response.data.displayMessage || {});
+        console.error('Error:', error.message);
+        setErrors("Something went wrong. Please try again.");
       }
-    } catch (error) {
-      console.error('Failed to submit form:', error);
-      setErrors({ global: 'Something went wrong. Please try again.' });
     } finally {
-      // Re-enable the submit button
       setIsSubmitting(false);
     }
-  };
+  }
 
   return (
     <div className="form-container">
@@ -94,7 +62,6 @@ const RegisterUser: React.FC = () => {
             placeholder="First Name"
             required
           />
-          {errors.firstName && <p className="error-message">{errors.firstName}</p>}
         </div>
         <div>
           <label htmlFor="lastName">Last Name</label>
@@ -106,7 +73,6 @@ const RegisterUser: React.FC = () => {
             placeholder="Last Name"
             required
           />
-          {errors.lastName && <p className="error-message">{errors.lastName}</p>}
         </div>
         <div>
           <label htmlFor="email">Email</label>
@@ -116,10 +82,8 @@ const RegisterUser: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your Email"
-            className={errors.email ? 'input-error' : ''}  // Conditionally add error class
             required
           />
-          {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
         <div>
           <label htmlFor="phone">Phone</label>
@@ -131,7 +95,6 @@ const RegisterUser: React.FC = () => {
             placeholder="Enter your Phone"
             required
           />
-          {errors.phone && <p className="error-message">{errors.phone}</p>}
         </div>
         <div>
           <label htmlFor="password">Password</label>
@@ -143,12 +106,11 @@ const RegisterUser: React.FC = () => {
             placeholder="Password"
             required
           />
-          {errors.password && <p className="error-message">{errors.password}</p>}
         </div>
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Submitting...' : 'Register'}
         </button>
-        {errors.global && <p className="error-message">{errors.global}</p>}
+        {errors && <p className="error-message">{errors}</p>}
       </form>
     </div>
   );
