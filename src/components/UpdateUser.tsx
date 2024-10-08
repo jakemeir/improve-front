@@ -1,3 +1,9 @@
+// General: The component creates a popup window for user update
+//--------------------------------------------------------------------------------------- 
+// Programer: yaaqov burshtein.
+// Date: 7/10/2024.
+//---------------------------------------------------------------------------------------
+
 import React, { useEffect, useState } from 'react';
 import validator from 'validator';
 import '../style/UpdateUser.css';
