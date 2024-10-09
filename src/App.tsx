@@ -10,7 +10,13 @@ const App: React.FC = () => {
 //props for update user
 const [isModelOpen, setModelOpen] = useState(false);
 // פה צריך להכניס נתונים אחרי שדף המשתמשים יהיה מוכן
-const userId = "66fa8a4bb6d781d148e87519";
+const [user, setUser] = useState({ id: "XXXXXXX" });
+const getUserId = () => {
+  if (user){
+    return user.id;
+  }
+  return null;
+};
 
   return (
     <div>
@@ -18,7 +24,7 @@ const userId = "66fa8a4bb6d781d148e87519";
       <CreateUser/>
       {/* להציב בכפתור את האייקון שאיזי הכין */}
       <button onClick={() => setModelOpen(true)}>Update User</button> 
-      <UpdateUser isOpen={isModelOpen} onClose={() => setModelOpen(false)} userId={userId}/>
+      <UpdateUser isOpen={isModelOpen} onClose={() => setModelOpen(false)} userId={getUserId}/>
     </div>
   );
 };
