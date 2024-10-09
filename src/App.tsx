@@ -9,6 +9,7 @@ const App: React.FC = () => {
 
 //props for update user
 const [isModelOpen, setModelOpen] = useState(false);
+// פה צריך להכניס נתונים אחרי שדף המשתמשים יהיה מוכן
 const userId = "66fa8a4bb6d781d148e87519";
 
   return (
