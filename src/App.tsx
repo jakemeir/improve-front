@@ -15,7 +15,7 @@ const getUserId = () => {
   if (user){
     return user.id;
   }
-  return null;
+  return "";
 };
 
   return (
@@ -24,7 +24,7 @@ const getUserId = () => {
       <CreateUser/>
       {/* להציב בכפתור את האייקון שאיזי הכין */}
       <button onClick={() => setModelOpen(true)}>Update User</button> 
-      <UpdateUser isOpen={isModelOpen} onClose={() => setModelOpen(false)} userId={getUserId}/>
+      <UpdateUser isOpen={isModelOpen} onClose={() => setModelOpen(false)} userId={getUserId()}/>
     </div>
   );
 };
