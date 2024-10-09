@@ -9,16 +9,7 @@ const App: React.FC = () => {
 
 //props for update user
 const [isModelOpen, setModelOpen] = useState(false);
-
-  // An example of a user in the list
-  const someUserData = {
-    firstName: "Dummy",
-    lastName: "User",
-    email: "dummyuser@example.com",
-    phone: "0541234567",
-    password: "password123",
-    role: "user"
-};
+const userId = "66fa8a4bb6d781d148e87519";
 
   return (
     <div>
@@ -26,7 +17,7 @@ const [isModelOpen, setModelOpen] = useState(false);
       <CreateUser/>
       {/* להציב בכפתור את האייקון שאיזי הכין */}
       <button onClick={() => setModelOpen(true)}>Update User</button> 
-      <UpdateUser isOpen={isModelOpen} onClose={() => setModelOpen(false)} initialUser={someUserData} />
+      <UpdateUser isOpen={isModelOpen} onClose={() => setModelOpen(false)} userId={userId}/>
     </div>
   );
 };
