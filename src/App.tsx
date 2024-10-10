@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import CreateUser from './components/CreateUser';
 import './index.css'
-import SearchBox from './components/SearchBox';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import UsersPage from './components/UsersPage';
@@ -20,7 +19,6 @@ const App: React.FC = () => {
       </Routes>
     </Layout>
   </Router>
-      <SearchBox />
       <CreateUser/>
     </div>
   );

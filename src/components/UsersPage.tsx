@@ -5,6 +5,7 @@ import User from '../types/types';
 import DeleteConfirmation from './DeleteConfirmation';
 import '../style/UsersPage.css';
 import axios from 'axios';
+import SearchBox from './SearchBox';
 
 const UsersPage: React.FC = () => {
 
@@ -54,6 +55,7 @@ const UsersPage: React.FC = () => {
   return (
     <div className="users-container">
       <h2 className="page-title">Users</h2>
+      <SearchBox />
       <button className="add-button">
         <PlusCircle size={20} className="add-button-icon" />
         Add New User

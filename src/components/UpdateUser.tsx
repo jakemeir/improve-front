@@ -51,7 +51,7 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
     if (!isOpen) return null;
 
     if (!user) {
-        return <div>Loading...</div>;
+        return <div>not found</div>;
     }
 
     const handleUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
