@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 import DeleteConfirmation from './DeleteConfirmation';
 import '../style/UsersPage.css';
+import SearchBox from './SearchBox';
 
 interface User {
   id: number;
@@ -40,11 +41,14 @@ const UsersPage: React.FC = () => {
 
   return (
     <div className="users-container">
-      <h2 className="page-title">Users</h2>
-      <button className="add-button">
-        <PlusCircle size={20} className="add-button-icon" />
-        Add New User
-      </button>
+      <div className="user-controls">
+        <button className="add-button">
+          <PlusCircle size={20} className="add-button-icon" />
+          Add New User
+        </button>
+        <SearchBox /> {/* Placing SearchBox next to the button */}
+      </div>
+
       <div className="table-container">
         <table className="table">
           <thead>

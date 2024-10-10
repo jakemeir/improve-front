@@ -1,9 +1,8 @@
 .search-modal{
-    position: absolute;
-    right: 20px;
-    top: 20px;
     max-width: 300px;
     width: auto;
+    margin-right: 29px;
+    margin-bottom: 29px;
 }
 .input-container {
     display: flex;

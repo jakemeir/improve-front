@@ -3,6 +3,13 @@
     margin: 0 auto;
     padding: 16px;
   }
+  .user-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1px;
+  }
+  
   
   .page-title {
     font-size: 1.5rem;

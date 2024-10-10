@@ -32,7 +32,7 @@ const App: React.FC = () => {
           </Routes>
         </Layout>
       </Router>
-      <SearchBox />
+      {/* <SearchBox /> */}
       {/* <CreateUser /> */}
     </div>
   );
