@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
+import UpdateUser from './UpdateUser';
+import User from '../types/types';
 import DeleteConfirmation from './DeleteConfirmation';
 import '../style/UsersPage.css';
-
-interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  password: string;
-  role: 'Admin' | 'User';
-}
+import axios from 'axios';
 
 const UsersPage: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([
-    { id: 1, firstName: 'Israel', lastName: 'Sternglanz', email: 'abc@example.com', phoneNumber: '123-456-7890', password: '', role: 'Admin' },
-    { id: 2, firstName: 'Abraham', lastName: 'Cohen', email: '123@example.com', phoneNumber: '098-765-4321', password: '', role: 'User' },
-  ]);
+
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/users');
+        setUsers(response.data.data);
+      } catch (error) {
+        console.error('Error fetching users data:', error);
+      }
+    };
+
+    fetchUsersData();
+  }, []);
+
+  const [users, setUsers] = useState<User[]>([]);
   const [deletingUser, setDeletingUser] = useState<User | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -27,13 +32,21 @@ const UsersPage: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  //props for update user
+  const [isModelOpen, setModelOpen] = useState(false);
+
+  const handleEditClick = (userId: string) => {
+    setEditingUserId(userId);
+    setModelOpen(true);
+  };
+
   const handleDeleteClick = (user: User) => {
     setDeletingUser(user);
   };
 
   const handleDeleteConfirm = () => {
     if (deletingUser) {
-      setUsers(users.filter(user => user.id !== deletingUser.id));
+      setUsers(users.filter(user => user._id !== deletingUser._id));
       setDeletingUser(null);
     }
   };
@@ -60,15 +73,15 @@ const UsersPage: React.FC = () => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id}>
+              <tr key={user._id}>
                 <td className="table-cell">{user.firstName}</td>
                 <td className="table-cell">{user.lastName}</td>
                 <td className="table-cell">{user.email}</td>
-                <td className="table-cell">{user.phoneNumber}</td>
+                <td className="table-cell">{user.phone}</td>
                 <td className="table-cell">{user.password}</td>
                 <td className="table-cell">{user.role}</td>
                 <td className="table-cell">
-                  <button className="action-button">
+                  <button onClick={() => handleEditClick(user._id)} className="action-button">
                     <Edit size={16} />
                   </button>
                   <button onClick={() => handleDeleteClick(user)} className="delete-button">
@@ -80,6 +93,8 @@ const UsersPage: React.FC = () => {
           </tbody>
         </table>
       </div>
+
+      <UpdateUser isOpen={isModelOpen} onClose={() => setModelOpen(false)} userId={editingUserId || ""} />
 
       <DeleteConfirmation
         isOpen={!!deletingUser}
