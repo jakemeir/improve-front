@@ -8,6 +8,8 @@ import DeleteConfirmation from './DeleteConfirmation';
 import '../style/UsersPage.css';
 import axios from 'axios';
 import SearchBox from './SearchBox';
+import Cookies from 'js-cookie';
+
 
 const UsersPage: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -21,7 +23,11 @@ const UsersPage: React.FC = () => {
     useEffect(() => {
         const fetchUsersData = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/users');
+                const response = await axios.get('http://localhost:8080/users',{
+                    headers:{
+                        "Authorization":Cookies.get('token')
+                    }
+                });
                 setUsers(response.data.data);
             } catch (error) {
                 console.error('Error fetching users data:', error);
@@ -40,7 +46,7 @@ const UsersPage: React.FC = () => {
     useEffect(() => {
         // בדוק אם המשתמש מחובר, אם לא, נווט לדף הלוגין
         const isLoggedIn = false; // כאן תבדוק אם המשתמש מחובר
-        if (!isLoggedIn) {
+        if (!Cookies.get('token')) {
             navigate('/login');
         }
     }, [navigate]);
