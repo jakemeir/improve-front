@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 import UpdateUser from './UpdateUser';
+import CreateUser from './CreateUser';
 import User from '../types/types';
 import DeleteConfirmation from './DeleteConfirmation';
 import '../style/UsersPage.css';
@@ -24,7 +25,6 @@ const UsersPage: React.FC = () => {
   }, []);
 
   const [users, setUsers] = useState<User[]>([]);
-  const [deletingUser, setDeletingUser] = useState<User | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
@@ -34,6 +34,13 @@ const UsersPage: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  //props for create user
+  const [isCreateUserOpen, setIsCreateUserOpen] = useState(false);
+
+  const handleCreateUser = () => {
+    setIsCreateUserOpen(true);
+  };
+
   //props for update user
   const [isModelOpen, setModelOpen] = useState(false);
 
@@ -41,6 +48,9 @@ const UsersPage: React.FC = () => {
     setEditingUserId(userId);
     setModelOpen(true);
   };
+
+  // props for delete user
+  const [deletingUser, setDeletingUser] = useState<User | null>(null);
 
   const handleDeleteClick = (user: User) => {
     setDeletingUser(user);
@@ -57,9 +67,11 @@ const UsersPage: React.FC = () => {
     <div className="users-container">
       <div className="user-controls">
         <button className="add-button">
-          <PlusCircle size={20} className="add-button-icon" />
+          <PlusCircle size={20} className="add-button-icon" onClick = {handleCreateUser}>
+          </PlusCircle>
           Add New User
         </button>
+        <CreateUser isOpen={isCreateUserOpen} onClose={() => setIsCreateUserOpen(false)} />
         <SearchBox /> {/* Placing SearchBox next to the button */}
       </div>
 
