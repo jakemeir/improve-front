@@ -18,7 +18,8 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
   const location = useLocation();
 
   const handleLogout = () => {
-    console.log('Logout clicked');
+    document.cookie = 'jwt=; Max-Age=0';
+    window.location.href = '/login';
   };
 
   return (
@@ -46,7 +47,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
           </li>
         </ul>
         <button onClick={handleLogout} className="logout-button">
-          <LogOut size={20} className="mr-2" />
+          <LogOut size={20} />
           Logout
         </button>
       </div>

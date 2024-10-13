@@ -26,7 +26,7 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
     // Fetch user data from API
     const fetchUserData = async () => {
         try{
-            const response = await axios.get(`http://localhost:8080/users/${userId}`);
+            const response = await axios.get(`http://localhost:8080/${userId}`);
             setUser(response.data.data);
         } catch (error) {
             console.error('Error fetching user data:', error);
@@ -107,7 +107,7 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
         const updatedUser = { firstName, lastName, phone, email, role };
         if (validateForm()) {
             try {
-                await axios.put(`http://localhost:8080/users/${userId}`, updatedUser);
+                await axios.put(`http://localhost:8080/${userId}`, updatedUser);
                 console.log('Updated user:', updatedUser);
                 setIsDirty(false);
                 onClose();
