@@ -7,6 +7,7 @@ import DeleteConfirmation from './DeleteConfirmation';
 import '../style/UsersPage.css';
 import axios from 'axios';
 import SearchBox from './SearchBox';
+import ExportUserButton from './ExportUserButton';
 
 
 const UsersPage: React.FC = () => {
@@ -66,12 +67,13 @@ const UsersPage: React.FC = () => {
   return (
     <div className="users-container">
       <div className="user-controls">
-        <button className="add-button">
-          <PlusCircle size={20} className="add-button-icon" onClick = {handleCreateUser}>
+        <button className="add-button" onClick = {handleCreateUser}>
+          <PlusCircle size={20} className="add-button-icon" >
           </PlusCircle>
           Add New User
         </button>
         <CreateUser isOpen={isCreateUserOpen} onClose={() => setIsCreateUserOpen(false)} />
+          <ExportUserButton/>
         <SearchBox /> {/* Placing SearchBox next to the button */}
       </div>
 

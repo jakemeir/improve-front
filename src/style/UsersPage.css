@@ -1,103 +1,104 @@
 .users-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
 }
 .user-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1px;
 }
 
-
 .page-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 16px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 16px;
 }
 
 .add-button {
-  background-color: #3b82f6;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 0.25rem;
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-  transition: background-color 0.2s;
+    width: 200px;
+    background-color: rgb(140, 150, 100);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    transition: background-color 0.2s;
 }
 
 .add-button:hover {
-  background-color: #2563eb;
+    background-color: #2563eb;
 }
 
 .add-button-icon {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 
 .table-container {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .table {
-  width: 100%;
-  min-width: 800px;
-  border-collapse: collapse;
-  border: 1px solid #d1d5db;
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    border: 1px solid #d1d5db;
 }
 
 .table-header {
-  background-color: #f3f4f6;
+    background-color: #f3f4f6;
 }
 
-.table-cell, .table-header-cell {
-  border: 1px solid #d1d5db;
-  padding: 8px;
+.table-cell,
+.table-header-cell {
+    border: 1px solid #d1d5db;
+    padding: 8px;
 }
 
 .action-button {
-  color: #3b82f6;
-  transition: color 0.2s;
-  margin-right: 8px;
-  border: none; /* Remove the border */
-  background: none; /* Remove any background */
-  cursor: pointer;  /* Ensure it still looks like a clickable button */
+    color: #3b82f6;
+    transition: color 0.2s;
+    margin-right: 8px;
+    border: none; /* Remove the border */
+    background: none; /* Remove any background */
+    cursor: pointer; /* Ensure it still looks like a clickable button */
 }
 
 .action-button:hover {
-  color: #2563eb;
+    color: #2563eb;
 }
 
 .delete-button {
-  color: #ef4444;
-  transition: color 0.2s;
-  border: none; /* Remove the border */
-  background: none; /* Remove any background */
-  cursor: pointer;  /* Ensure it still looks like a clickable button */
+    color: #ef4444;
+    transition: color 0.2s;
+    border: none; /* Remove the border */
+    background: none; /* Remove any background */
+    cursor: pointer; /* Ensure it still looks like a clickable button */
 }
 
 .delete-button:hover {
-  color: #dc2626;
+    color: #dc2626;
 }
 
 @media (max-width: 767px) {
-  .users-container {
-    padding: 8px;
-  }
+    .users-container {
+        padding: 8px;
+    }
 
-  .table-container {
-    margin-top: 16px;
-  }
+    .table-container {
+        margin-top: 16px;
+    }
 
-  .table-header-cell,
-  .table-cell {
-    padding: 8px 4px;
-  }
+    .table-header-cell,
+    .table-cell {
+        padding: 8px 4px;
+    }
 
-  .action-button,
-  .delete-button {
-    padding: 4px;
-  }
+    .action-button,
+    .delete-button {
+        padding: 4px;
+    }
 }

@@ -27,7 +27,7 @@ const ExportUserButton: React.FC = () => {
 
   return (
     <button onClick={handleExport} className="btn btn-primary">
-      Export User Data to CSV
+      Export
     </button>
   );
 };
