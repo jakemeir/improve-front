@@ -3,8 +3,9 @@ import CreateUser from './components/CreateUser';
 import './index.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Updated import
+import SearchBox from './components/SearchBox';
 import UsersPage from './components/UsersPage';
-
 
 const App: React.FC = () => {
 
@@ -20,6 +21,7 @@ const App: React.FC = () => {
     </Layout>
   </Router>
       <CreateUser/>
+
     </div>
   );
 };

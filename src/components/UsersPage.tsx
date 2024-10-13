@@ -7,6 +7,7 @@ import '../style/UsersPage.css';
 import axios from 'axios';
 import SearchBox from './SearchBox';
 
+
 const UsersPage: React.FC = () => {
 
   useEffect(() => {
@@ -54,12 +55,14 @@ const UsersPage: React.FC = () => {
 
   return (
     <div className="users-container">
-      <h2 className="page-title">Users</h2>
-      <SearchBox />
-      <button className="add-button">
-        <PlusCircle size={20} className="add-button-icon" />
-        Add New User
-      </button>
+      <div className="user-controls">
+        <button className="add-button">
+          <PlusCircle size={20} className="add-button-icon" />
+          Add New User
+        </button>
+        <SearchBox /> {/* Placing SearchBox next to the button */}
+      </div>
+
       <div className="table-container">
         <table className="table">
           <thead>
