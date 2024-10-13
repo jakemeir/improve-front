@@ -34,6 +34,7 @@ import '../style/SearchBox.css'
     };
   return (
     <div className='search-modal'>
+
       <div className="input-container">
         <input type="text" placeholder="Search..." value={searchTerm} onChange={handleInputChange} className="search-input"/>
         <button onClick={handleSearch} className="search-button"> search </button>
