@@ -1,0 +1,119 @@
+/* עיצוב לקונטיינר הכללי */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f8;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .login-container h2 {
+    font-size: 2.8rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* קונטיינר שעוטף את כל האינפוטים והכפתורים */
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-form input,
+  .login-form button,
+  .login-form a {
+    width: 100%;
+    padding: 12px 18px;
+    margin: 10px 0;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  .login-form input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+    outline: none;
+  }
+  
+  .login-form button,
+  .login-form a {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .login-form button:hover,
+  .login-form a:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+  }
+  
+  .login-form button:active,
+  .login-form a:active {
+    background-color: #1f6fa4;
+    transform: translateY(0);
+  }
+  
+  /* בחירת שיטת לוגין */
+  .method-select {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  .method-select button {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border 0.3s ease;
+  }
+  
+  .method-select button:last-child {
+    margin-right: 0;
+  }
+  
+  .method-select button.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #2980b9;
+  }
+  
+  .method-select button:hover {
+    background-color: #bdc3c7;
+  }
+  
+  /* כפתור ל-Google */
+  .google-login {
+    background-color: #db4437;
+    text-align: center;
+    color: white;
+  }
+  
+  .google-login:hover {
+    background-color: #c33629;
+  }
+  
