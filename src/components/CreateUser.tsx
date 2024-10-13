@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../style/CreateUser.css';
 
-const RegisterUser: React.FC = () => {
+const CreateUser: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -116,4 +116,4 @@ const RegisterUser: React.FC = () => {
   );
 };
 
-export default RegisterUser;
+export default CreateUser;
