@@ -20,6 +20,7 @@ const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({  isOpen,  onClo
           "Authorization": Cookies.get('token'),
         },
       });
+      Cookies.remove('token');
       onConfirm();
       onClose();
     } catch (error) {
