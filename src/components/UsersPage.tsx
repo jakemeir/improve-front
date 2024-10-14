@@ -7,7 +7,6 @@ import User from '../types/types';
 import DeleteConfirmation from './DeleteConfirmation';
 import '../style/UsersPage.css';
 import axios from 'axios';
-import SearchBox from './SearchBox';
 import Cookies from 'js-cookie';
 
 
@@ -71,6 +70,29 @@ const UsersPage: React.FC = () => {
             setDeletingUser(null);
         }
     };
+    const handleSearchUsers= async (e:React.ChangeEvent<HTMLInputElement>) =>{
+
+        try {
+          const response = await axios.get('http://localhost:8080/users',{
+            headers:{
+                "Authorization":Cookies.get('token')
+            },
+            params:{
+                q:e.target.value
+            }
+      
+        });
+      
+        setUsers(response.data.data)
+          
+        } catch (error) {
+          console.log(error);
+          
+        }
+      
+      
+      
+      }
 
     return (
         <div className="users-container">
@@ -80,7 +102,11 @@ const UsersPage: React.FC = () => {
                     Add New User
                 </button>
                 <CreateUser isOpen={isCreateUserOpen} onClose={() => setIsCreateUserOpen(false)} />
-                <SearchBox />
+                <div className='search-modal'>
+                    <div className="input-container">
+                        <input type="text" placeholder="Search..." onChange={handleSearchUsers} className="search-input"/>
+                    </div>
+                </div>
             </div>
 
             <div className="table-container">
