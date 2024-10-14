@@ -79,7 +79,7 @@ const UsersPage: React.FC = () => {
                     <PlusCircle size={20} className="add-button-icon" />
                     Add New User
                 </button>
-                <CreateUser isOpen={isCreateUserOpen} onClose={() => setIsCreateUserOpen(false)} />
+                <CreateUser  isOpen={isCreateUserOpen} onClose={() => setIsCreateUserOpen(false)} />
                 <SearchBox />
             </div>
 
@@ -91,9 +91,8 @@ const UsersPage: React.FC = () => {
                             <th className="table-header-cell">Last Name</th>
                             <th className="table-header-cell">Email</th>
                             <th className="table-header-cell">Phone Number</th>
-                            <th className="table-header-cell">Password</th>
                             <th className="table-header-cell">Role</th>
-                            <th className="table-header-cell">Actions</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +102,7 @@ const UsersPage: React.FC = () => {
                                 <td className="table-cell">{user.lastName}</td>
                                 <td className="table-cell">{user.email}</td>
                                 <td className="table-cell">{user.phone}</td>
-                                <td className="table-cell">{user.password}</td>
+                                {/* <td className="table-cell">{user.password}</td> */}
                                 <td className="table-cell">{user.role}</td>
                                 <td className="table-cell">
                                     <button onClick={() => handleEditClick(user._id)} className="action-button">

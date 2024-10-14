@@ -26,6 +26,7 @@
   align-items: center;
   margin-bottom: 16px;
   transition: background-color 0.2s;
+  width: 200px;
 }
 
 .add-button:hover {

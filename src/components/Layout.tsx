@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Menu as MenuIcon, Copyright } from 'lucide-react';
+import { Menu as MenuIcon, Copyright, LogIn } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Menu from './Menu';
 import '../style/Layout.css';
+import Login from './Login';
+import Cookies from 'js-cookie';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,7 +32,12 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </button>
             )}
           </header>
-          <main className="main-content">{children}</main>
+          
+          <main className="main-content">{children}
+           <div>
+           
+            </div> 
+          </main>
           <footer className="footer">
             <span className="footer-text">
               <Copyright size={16} /> All rights reserved Basmach 12
