@@ -10,6 +10,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [otp, setOtp] = useState('');
+  const [otpToken,setOtpToken] = useState('')
   const [loginMethod, setLoginMethod] = useState<'email' | 'otp' | 'google'>('email');
   const navigate = useNavigate();
 
@@ -23,18 +24,49 @@ const Login: React.FC = () => {
           password,
         });
   
-        if (response && response.data && response.data.data) {
+        
           const { token } = response.data.data;
           console.log(token);
           
           Cookies.set('token', token, { expires: 1});
           navigate('/users');
+        
+      }
+      if (loginMethod === 'otp') {
+
+      
+
+        if (email&&!otp) {
+          const response = await axios.post('http://localhost:8080/auth/login/otp', {
+            email
+          });
+          setOtpToken(response.data.data.token);
+          console.log(otpToken);
+          
         }
+
+        if (otp&&otpToken) {
+          console.log(otpToken);
+          
+          const response = await axios.post('http://localhost:8080/auth/login/otp/v', {
+            token:otpToken,
+            otp
+          });
+          const secondToken = response.data.data.token;
+          
+          
+          Cookies.set('token', secondToken, { expires: 1});
+          navigate('/users');
+        
+        }
+
+
+        
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Axios error:', error.response?.data || error.message);
-        setErrors(error.response?.data?.message || 'An error occurred while logging in.');
+        console.error('Axios error:', error.response?.data.errorMessage || error.message);
+        setErrors(error.response?.data.errorMessage || 'An error occurred while logging in.');
       } else {
         console.error('Unexpected error:', error);
         setErrors('An unexpected error occurred. Please try again.');
