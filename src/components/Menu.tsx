@@ -18,7 +18,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
   const location = useLocation();
 
   const handleLogout = () => {
-    document.cookie = 'jwt=; Max-Age=0';
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
     window.location.href = '/login';
   };
 
