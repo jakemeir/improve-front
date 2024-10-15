@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
+import Cookies from 'js-cookie';
 
 const ImproveLogo: React.FC = () => (
   <div className="improve-logo">
@@ -18,7 +19,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
   const location = useLocation();
 
   const handleLogout = () => {
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+    Cookies.remove('token');
     window.location.href = '/login';
   };
 
@@ -43,6 +44,15 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
               onClick={onClose}
             >
               Users
+            </Link>
+          </li>
+          <li className="nav-list-item">
+            <Link
+              to="/training"
+              className={`nav-link ${location.pathname === '/training' ? 'nav-link-active' : ''}`}
+              onClick={onClose}
+            >
+              training
             </Link>
           </li>
         </ul>
