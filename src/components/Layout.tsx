@@ -35,7 +35,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           
           <main className="main-content">{children}
            <div>
-           
+              <Login/>
             </div> 
           </main>
           <footer className="footer">
