@@ -152,6 +152,7 @@ const UsersPage: React.FC = () => {
                 onClose={() => setDeletingUser(null)}
                 onConfirm={handleDeleteConfirm}
                 userName={deletingUser ? `${deletingUser.firstName} ${deletingUser.lastName}` : ''}
+                userId={deletingUser ? `${deletingUser._id}` : ''}
             />
         </div>
     );
