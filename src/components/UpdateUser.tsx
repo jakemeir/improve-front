@@ -27,7 +27,9 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
     // Fetch user data from API
     const fetchUserData = async () => {
         try{
-            const response = await axios.get(`http://localhost:8080/users/${userId}`);
+            const response = await axios.get(`http://localhost:8080/users/${userId}`,{headers:{
+                "Authorization":Cookies.get('token')
+            },});
             setUser(response.data.data);
         } catch (error) {
             console.error('Error fetching user data:', error);
