@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import UsersPage from './components/UsersPage';
 import Login from './components/Login';
+import QuaetionnaireLayout from './quaetionnaire/QuaetionnaireLayout';
 
 const App: React.FC = () => {
 
@@ -16,6 +17,8 @@ const App: React.FC = () => {
         {/* Add other routes as needed */}
         <Route path="/" element={<div>IMPROVE PROJECT 2024</div>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/quaetionnaire" element={<QuaetionnaireLayout/>} />
+
       </Routes>
     </Layout>
   </Router>

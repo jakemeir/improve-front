@@ -37,6 +37,15 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
           </Link>
         </div>
         <ul className="nav-list">
+        <li className="nav-list-item">
+            <Link
+              to="/quaetionnaire"
+              className={`nav-link ${location.pathname === '/quaetionnaire' ? 'nav-link-active' : ''}`}
+              onClick={onClose}
+            >
+              Registration quaetionnaire
+            </Link>
+          </li>
           <li className="nav-list-item">
             <Link
               to="/users"
