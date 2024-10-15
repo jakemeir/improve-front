@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import '../style/UsersPage.css';
+
 
 const ExportUserButton: React.FC = () => {
   // Function to handle the export request
@@ -7,8 +10,10 @@ const ExportUserButton: React.FC = () => {
     try {
       // Make the request to the server to fetch the CSV data
       const response = await axios.get('http://localhost:8080/users/export', {
-        responseType: 'blob', // To handle the binary data (blob)
-      });
+        responseType: 'blob', 
+          headers: {
+            "Authorization": Cookies.get('token'),
+          }});
 
       // Create a blob from the response
       const blob = new Blob([response.data], { type: 'text/csv' });
@@ -26,8 +31,8 @@ const ExportUserButton: React.FC = () => {
   };
 
   return (
-    <button onClick={handleExport} className="btn btn-primary">
-      Export User Data to CSV
+    <button onClick={handleExport} className="export-button">
+      Export to CSV
     </button>
   );
 };

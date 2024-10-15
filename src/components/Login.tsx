@@ -136,9 +136,7 @@ const Login: React.FC = () => {
           Login with Google
         </a>
         <p>{errors && errors}</p>
-        <Link to="/" className="header-logo">
-              
-            </Link>
+
       </div>
     </div>
   );
