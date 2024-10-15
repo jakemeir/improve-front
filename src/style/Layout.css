@@ -47,6 +47,8 @@ body {
   border: none;
   color: black;
   cursor: pointer;
+  max-width: 35px;
+  align-items: center;
 }
 
 .main-content {

@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../style/CreateUser.css';
+import Cookies from 'js-cookie';
+import { Navigate } from 'react-router-dom';
+import Login from './Login';
 
 interface Props {
   isOpen: boolean;
@@ -15,6 +18,7 @@ const CreateUser: React.FC<Props> = ({ isOpen, onClose }) => {
   const [phone, setPhone] = useState('');
   const [errors, setErrors] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   if (!isOpen) return null;
 
@@ -32,7 +36,13 @@ const CreateUser: React.FC<Props> = ({ isOpen, onClose }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/users', formData);
+      const response = await axios.post('http://localhost:8080/users', formData,
+        {
+          headers:{
+              "Authorization":Cookies.get('token')
+          }
+      }
+      );
 
       setFirstName('');
       setLastName('');
