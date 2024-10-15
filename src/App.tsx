@@ -1,25 +1,27 @@
-import React  from 'react';
+import React from 'react';
 import './index.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import UsersPage from './components/UsersPage';
 import Login from './components/Login';
+import TrainingPage from './components/TrainingPage';
 
 const App: React.FC = () => {
 
   return (
     <div>
-        <Router>
-    <Layout>
-      <Routes>
-        <Route path="/users" element={<UsersPage />} />
-        {/* Add other routes as needed */}
-        <Route path="/" element={<div>IMPROVE PROJECT 2024</div>} />
-        <Route path="/login" element={<Login/>} />
-      </Routes>
-    </Layout>
-  </Router>
-     
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/trainings" element={<TrainingPage />} />
+            {/* Add other routes as needed */}
+            <Route path="/" element={<div>IMPROVE PROJECT 2024</div>} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Layout>
+      </Router>
+
 
     </div>
   );

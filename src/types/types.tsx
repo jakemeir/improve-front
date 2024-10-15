@@ -1,4 +1,4 @@
-interface User {
+export interface User {
     _id: string;
     firstName: string;
     lastName: string;
@@ -7,4 +7,13 @@ interface User {
     password: string;
     role: 'Admin' | 'User';
   }
-  export default User;
+
+export interface Train {
+    _id: string;
+    trainingName: string;
+    image: string;
+    sets: number;
+    secondaryCategory: string;
+    groups: string[];
+    status: 'active' | 'inactive';
+  }

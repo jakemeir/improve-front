@@ -1,30 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Train } from '../types/types';
 import { Edit } from 'lucide-react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const TrainingPage = () => {
 
-  const exampleTrain: Train = {
-    _id: "12345",
-    trainingName: "Full Body Workout",
-    image: "https://example.com/image.jpg",
-    sets: 3,
-    secondaryCategory: "Strength Training",
-    groups: ["Beginners", "Intermediate"],
-    status: "active",
-  };
+  const [training, setTraining] = useState<Train[]>([]);
 
-  const [training, setTraining] = useState<Train[]>([
-    {
-    _id: "12345",
-    trainingName: "Full Body Workout",
-    image: "https://example.com/image.jpg",
-    sets: 3,
-    secondaryCategory: "Strength Training",
-    groups: ["Beginners", "Intermediate"],
-    status: "active",
-  },
-]);
+  useEffect(() => {
+    const fetchTrainingData = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/training', {
+                headers: {
+                    "Authorization": Cookies.get('token')
+                }
+            });
+            setTraining(response.data.data);
+        } catch (error) {
+            console.error('Error fetching training data:', error);
+        }
+    };
+
+    fetchTrainingData();
+}, []);
 
   const handleEditClick = (trainId: string) => {};
 

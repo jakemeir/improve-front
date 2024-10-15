@@ -48,8 +48,8 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
           </li>
           <li className="nav-list-item">
             <Link
-              to="/training"
-              className={`nav-link ${location.pathname === '/training' ? 'nav-link-active' : ''}`}
+              to="/trainings"
+              className={`nav-link ${location.pathname === '/trainings' ? 'nav-link-active' : ''}`}
               onClick={onClose}
             >
               training
