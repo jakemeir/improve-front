@@ -119,7 +119,7 @@ const UsersPage: React.FC = () => {
                             <th className="table-header-cell">Email</th>
                             <th className="table-header-cell">Phone Number</th>
                             <th className="table-header-cell">Role</th>
-                           
+                           <th className="table-header-cell">Action</th>
                         </tr>
                     </thead>
                     <tbody>
