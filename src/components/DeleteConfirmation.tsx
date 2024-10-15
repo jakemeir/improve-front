@@ -1,19 +1,32 @@
 import React from 'react';
 import '../style/DeleteConfirmation.css';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 interface DeleteConfirmationProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  userName: string;
+  userId: string;
+  userName: string; 
 }
 
-const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  userName,
-}) => {
+const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({  isOpen,  onClose,  onConfirm,  userId, userName}) => {
+
+  const deleteUser = async () => {
+    try {
+      await axios.delete(`http://localhost:8080/users/${userId}`, {
+        headers: {
+          "Authorization": Cookies.get('token'),
+        },
+      });
+      onConfirm();
+      onClose();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -27,7 +40,7 @@ const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
           <button onClick={onClose} className="delete-confirmation-cancel">
             Cancel
           </button>
-          <button onClick={onConfirm} className="delete-confirmation-delete">
+          <button onClick={deleteUser} className="delete-confirmation-delete">
             Delete
           </button>
         </div>

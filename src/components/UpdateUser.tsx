@@ -19,7 +19,7 @@ import Cookies from 'js-cookie';
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    userId: string; 
+    userId: string;
 }
 
 const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
@@ -27,11 +27,7 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
     // Fetch user data from API
     const fetchUserData = async () => {
         try{
-            const response = await axios.get(`http://localhost:8080/users/${userId}`,{
-                headers:{
-                    "Authorization":Cookies.get('token')
-                }
-            });
+            const response = await axios.get(`http://localhost:8080/users/${userId}`);
             setUser(response.data.data);
         } catch (error) {
             console.error('Error fetching user data:', error);
@@ -66,18 +62,18 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
     }
 
     const validateForm = () => {
-        const { 
-            firstName: rawFirstName, 
-            lastName: rawLastName, 
-            email: rawEmail, 
-            phone: rawPhone 
-          } = user;
-        
-          const firstName = rawFirstName.trim();
-          const lastName = rawLastName.trim();
-          const email = rawEmail.trim();
-          const phone = rawPhone.trim();
-          
+        const {
+            firstName: rawFirstName,
+            lastName: rawLastName,
+            email: rawEmail,
+            phone: rawPhone
+        } = user;
+
+        const firstName = rawFirstName.trim();
+        const lastName = rawLastName.trim();
+        const email = rawEmail.trim();
+        const phone = rawPhone.trim();
+
         let newErrors: { [key: string]: string } = {};
 
         if (validator.isEmpty(firstName)) {
@@ -105,14 +101,18 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-    
+
     //Sending an update request to the server
     const handleSave = async () => {
         const { firstName, lastName, phone, email, role } = user;
         const updatedUser = { firstName, lastName, phone, email, role };
         if (validateForm()) {
             try {
-                await axios.put(`http://localhost:8080/users/${userId}`, updatedUser);
+                await axios.put(`http://localhost:8080/users/${userId}`, updatedUser, {
+                    headers: {
+                        "Authorization": Cookies.get('token')
+                    }
+                });
                 console.log('Updated user:', updatedUser);
                 setIsDirty(false);
                 onClose();
@@ -135,7 +135,7 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
     };
 
     return (
-        <div className="overlay" onClick={onClose}>
+        <div className="overlay" onClick={handleCancel}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <h2>Update Username</h2>
                 <div className="form-group">
