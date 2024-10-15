@@ -116,6 +116,8 @@ body {
 
 .nav-list-item {
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .nav-link {
