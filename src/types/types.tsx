@@ -8,12 +8,15 @@ export interface User {
     role: 'Admin' | 'User';
   }
 
-export interface Train {
+  export interface Train {
     _id: string;
-    trainingName: string;
-    image: string;
+    name: string;
+    description?: string;
     sets: number;
-    secondaryCategory: string;
-    groups: string[];
-    status: 'active' | 'inactive';
+    times: number;
+    category: string;
+    status: boolean;
+    imgPath: string;
   }
+  
+  
