@@ -60,7 +60,7 @@ const TrainingPage = () => {
               <td className="table-cell">{train.times}</td>
               <td className="table-cell">{train.category}</td>
               <td className="table-cell">{train.status ? 'Active' : 'Inactive'}</td>
-              <td className="table-cell"><img src={train.imgPath} alt="Exercise" /></td>
+              <td className="table-cell"><img src={`http://localhost:8080/${train.imgPath}`} alt="Exercise" /></td>
               <td className="table-cell">
                 <button onClick={() => handleEditClick(train._id)} className="action-button"><Edit size={16} /></button>
                 <button onClick={() => handleDeleteClick(train._id)} className="delete-button"><Trash2 size={16} /></button>
