@@ -47,10 +47,35 @@ const TrainingPage = () => {
      setIsDeleteOpen(!isDeleteOpen);
   };
 
+  const handleSearchUsers = async (e:React.ChangeEvent<HTMLInputElement>) =>{
+    try {
+      const response = await axios.get('http://localhost:8080/exercises',{
+        headers:{
+            "Authorization":Cookies.get('token')
+        },
+        params:{
+            q:e.target.value
+        }
+  
+    });
+  
+    setTraining(response.data.data)
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
 
   return (
     <div className="table-container">
       <button onClick={handleCreateClick}>create</button>
+      <div className='search-modal'>
+                    <div className="input-container">
+                        <input type="text" placeholder="Search..." onChange={handleSearchUsers} className="search-input"/>
+                    </div>
+                </div>
       <table className="table">
         <thead>
           <tr className="table-header">
