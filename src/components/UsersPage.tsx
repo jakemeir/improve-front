@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 import UpdateUser from './UpdateUser';
 import CreateUser from './CreateUser';
-import User from '../types/types';
+import {User} from '../types/types';
 import DeleteConfirmation from './DeleteConfirmation';
 import '../style/UsersPage.css';
 import axios from 'axios';
