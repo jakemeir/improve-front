@@ -15,20 +15,20 @@ const TrainingPage = () => {
   const [isDeleteOpen,setIsDeleteOpen] = useState<boolean>(false)
   const [exerciseId, setExerciseId] = useState<string>('')
 
-  useEffect(() => {
-    const fetchTrainingData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/exercises', {
-          headers: {
-            "Authorization": Cookies.get('token')
-          }
-        });
-        setTraining(response.data.data);
-      } catch (error) {
-        console.error('Error fetching training data:', error);
-      }
-    };
+  const fetchTrainingData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/exercises', {
+        headers: {
+          "Authorization": Cookies.get('token')
+        }
+      });
+      setTraining(response.data.data);
+    } catch (error) {
+      console.error('Error fetching training data:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchTrainingData();
   }, []);
 
@@ -82,9 +82,9 @@ const TrainingPage = () => {
           ))}
         </tbody>
       </table>
-      {isEditOpen&&<UpdateExercise exerciseId={exerciseId} onClose={()=>{handleEditClick(exerciseId)}}  isOpen={isEditOpen}/>}
-        {isCreateOpen&&<CreateExercise onClose={()=>{handleCreateClick()}} isOpen={isCreateOpen}/>}
-        { isDeleteOpen&& <DeleteExercise onClose={()=>{handleDeleteClick(exerciseId)}} exerciseId={exerciseId}/>}
+      {isEditOpen&&<UpdateExercise onSuccess={fetchTrainingData} exerciseId={exerciseId} onClose={()=>{handleEditClick(exerciseId)}}  isOpen={isEditOpen}/>}
+        {isCreateOpen&&<CreateExercise onSuccess={fetchTrainingData} onClose={()=>{handleCreateClick()}} isOpen={isCreateOpen}/>}
+        { isDeleteOpen&& <DeleteExercise onSuccess={fetchTrainingData} onClose={()=>{handleDeleteClick(exerciseId)}} exerciseId={exerciseId}/>}
     </div>
   )
 }

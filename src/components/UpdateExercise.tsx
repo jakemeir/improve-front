@@ -16,9 +16,10 @@ interface UpdateExerciseProps {
   exerciseId: string;
   isOpen: boolean;
   onClose: () => void;
+  onSuccess: ()=> void;
 }
 
-const UpdateExercise: React.FC<UpdateExerciseProps> = ({ exerciseId,onClose,isOpen }) => {
+const UpdateExercise: React.FC<UpdateExerciseProps> = ({ exerciseId,onClose,isOpen,onSuccess }) => {
 
 
   const [formData, setFormData] = useState<ExerciseFormData>({
@@ -113,6 +114,7 @@ useEffect(() => {
           },
         }
       );
+      onSuccess()
       onClose();
       console.log(response.data);
     } catch (error:any) {

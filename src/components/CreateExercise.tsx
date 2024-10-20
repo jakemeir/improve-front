@@ -15,9 +15,10 @@ interface ExerciseFormData {
 interface CreateExerciseProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess: ()=> void;
 }
 
-const CreateExercise: React.FC<CreateExerciseProps> = ({ onClose, isOpen }) => {
+const CreateExercise: React.FC<CreateExerciseProps> = ({ onClose, isOpen,onSuccess }) => {
   const [formData, setFormData] = useState<ExerciseFormData>({
     name: "",
     description: "",
@@ -76,6 +77,7 @@ const CreateExercise: React.FC<CreateExerciseProps> = ({ onClose, isOpen }) => {
           },
         }
       );
+      onSuccess()
       onClose();
       console.log(response.data);
     } catch (error: any) {

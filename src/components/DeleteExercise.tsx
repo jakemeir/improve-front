@@ -6,9 +6,10 @@ import '../style/DeleteConfirmation.css';
 interface DeleteCProps {
     exerciseId:string;
     onClose: () => void;
+    onSuccess: ()=> void;
 }
   
-  const DeleteExercise:React.FC<DeleteCProps> = ({onClose,exerciseId}) => {
+  const DeleteExercise:React.FC<DeleteCProps> = ({onClose,exerciseId,onSuccess}) => {
 
     const deleteUser = async () => {
         try {
@@ -17,7 +18,7 @@ interface DeleteCProps {
               "Authorization": Cookies.get('token'),
             },
           });
-
+          onSuccess()
           onClose();
         } catch (error) {
           console.error('Error deleting user:', error);
