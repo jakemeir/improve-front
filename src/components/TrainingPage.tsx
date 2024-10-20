@@ -3,10 +3,13 @@ import { Train } from '../types/types';
 import { Edit, Trash2 } from 'lucide-react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import UpdateExercise from './UpdateExercise';
 
 const TrainingPage = () => {
 
   const [training, setTraining] = useState<Train[]>([]);
+  const [isEditOpen,setIsEditOpen] = useState<boolean>(false)
+  const [exerciseId, setExerciseId] = useState<string>('')
 
   useEffect(() => {
     const fetchTrainingData = async () => {
@@ -25,7 +28,11 @@ const TrainingPage = () => {
     fetchTrainingData();
   }, []);
 
-  const handleEditClick = (trainId: string) => { };
+  const handleEditClick = (trainId: string) => {
+    setExerciseId(trainId)
+    setIsEditOpen(!isEditOpen)
+
+  };
   const handleDeleteClick = (trainId: string) => { };
 
 
@@ -62,6 +69,7 @@ const TrainingPage = () => {
           ))}
         </tbody>
       </table>
+      {isEditOpen&&<UpdateExercise exerciseId={exerciseId} onClose={()=>{handleEditClick(exerciseId)}}  isOpen={isEditOpen}/>}
     </div>
   )
 }
