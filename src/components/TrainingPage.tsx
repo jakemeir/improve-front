@@ -5,12 +5,14 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import UpdateExercise from './UpdateExercise';
 import CreateExercise from './CreateExercise';
+import DeleteExercise from './DeleteExercise';
 
 const TrainingPage = () => {
 
   const [training, setTraining] = useState<Train[]>([]);
   const [isEditOpen,setIsEditOpen] = useState<boolean>(false)
   const [isCreateOpen,setIsCreateOpen] = useState<boolean>(false)
+  const [isDeleteOpen,setIsDeleteOpen] = useState<boolean>(false)
   const [exerciseId, setExerciseId] = useState<string>('')
 
   useEffect(() => {
@@ -40,7 +42,10 @@ const TrainingPage = () => {
     setIsEditOpen(!isEditOpen)
 
   };
-  const handleDeleteClick = (trainId: string) => { };
+  const handleDeleteClick = (trainId: string) => { 
+     setExerciseId(trainId);
+     setIsDeleteOpen(!isDeleteOpen);
+  };
 
 
   return (
@@ -79,6 +84,7 @@ const TrainingPage = () => {
       </table>
       {isEditOpen&&<UpdateExercise exerciseId={exerciseId} onClose={()=>{handleEditClick(exerciseId)}}  isOpen={isEditOpen}/>}
         {isCreateOpen&&<CreateExercise onClose={()=>{handleCreateClick()}} isOpen={isCreateOpen}/>}
+        { isDeleteOpen&& <DeleteExercise onClose={()=>{handleDeleteClick(exerciseId)}} exerciseId={exerciseId}/>}
     </div>
   )
 }
