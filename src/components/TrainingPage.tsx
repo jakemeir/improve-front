@@ -4,11 +4,13 @@ import { Edit, Trash2 } from 'lucide-react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import UpdateExercise from './UpdateExercise';
+import CreateExercise from './CreateExercise';
 
 const TrainingPage = () => {
 
   const [training, setTraining] = useState<Train[]>([]);
   const [isEditOpen,setIsEditOpen] = useState<boolean>(false)
+  const [isCreateOpen,setIsCreateOpen] = useState<boolean>(false)
   const [exerciseId, setExerciseId] = useState<string>('')
 
   useEffect(() => {
@@ -28,6 +30,11 @@ const TrainingPage = () => {
     fetchTrainingData();
   }, []);
 
+  const handleCreateClick = () => {
+    setIsCreateOpen(!isCreateOpen)
+
+  };
+
   const handleEditClick = (trainId: string) => {
     setExerciseId(trainId)
     setIsEditOpen(!isEditOpen)
@@ -38,6 +45,7 @@ const TrainingPage = () => {
 
   return (
     <div className="table-container">
+      <button onClick={handleCreateClick}>create</button>
       <table className="table">
         <thead>
           <tr className="table-header">
@@ -60,7 +68,7 @@ const TrainingPage = () => {
               <td className="table-cell">{train.times}</td>
               <td className="table-cell">{train.category}</td>
               <td className="table-cell">{train.status ? 'Active' : 'Inactive'}</td>
-              <td className="table-cell"><img src={`http://localhost:8080/${train.imgPath}`} alt="Exercise" /></td>
+              <td className="table-cell"><img src={`http://localhost:8080/${train.imgPath}`} style={{width:100}} alt="Exercise" /></td>
               <td className="table-cell">
                 <button onClick={() => handleEditClick(train._id)} className="action-button"><Edit size={16} /></button>
                 <button onClick={() => handleDeleteClick(train._id)} className="delete-button"><Trash2 size={16} /></button>
@@ -70,6 +78,7 @@ const TrainingPage = () => {
         </tbody>
       </table>
       {isEditOpen&&<UpdateExercise exerciseId={exerciseId} onClose={()=>{handleEditClick(exerciseId)}}  isOpen={isEditOpen}/>}
+        {isCreateOpen&&<CreateExercise onClose={()=>{handleCreateClick()}} isOpen={isCreateOpen}/>}
     </div>
   )
 }

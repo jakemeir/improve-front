@@ -1,74 +1,183 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import React, { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import '../style/UpdateUser.css';
 
-interface ExerciseData {
+interface ExerciseFormData {
   name: string;
-  image: File | null;
+  description: string;
+  sets: number;
+  times: number;
+  category: string;
+  status: boolean;
 }
 
-export default function CreateExercise() {
-  const [formData, setFormData] = useState<ExerciseData>({
-    name: '',
-    image: null,
+interface CreateExerciseProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const CreateExercise: React.FC<CreateExerciseProps> = ({ onClose, isOpen }) => {
+  const [formData, setFormData] = useState<ExerciseFormData>({
+    name: "",
+    description: "",
+    sets: 1,
+    times: 1,
+    category: "",
+    status: false,
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFormData((prev) => ({ ...prev, image: e.target.files?e.target.files[0]:null }));
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+      if (!selectedFile.type.startsWith('image/')) {
+        setError("Only image files are allowed.");
+      } else {
+        setFile(selectedFile);
+        setError(null);
+      }
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-    // Use FormData to handle file upload
-    const formToSubmit = new FormData();
-    formToSubmit.append('name', formData.name);
-    if (formData.image) {
-      formToSubmit.append('image', formData.image);
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("sets", formData.sets.toString());
+    formDataToSend.append("times", formData.times.toString());
+    formDataToSend.append("category", formData.category);
+    formDataToSend.append("status", formData.status.toString());
+
+    if (file) {
+      formDataToSend.append("image", file);
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/exercises', formToSubmit, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          "Authorization": Cookies.get('token')
-        },
-      });
-
-      if (response.status === 200) {
-        console.log('Exercise created successfully');
-      } else {
-        console.log('Failed to create exercise');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
+      const response = await axios.post(
+        `http://localhost:8080/exercises`,
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": Cookies.get('token'),
+          },
+        }
+      );
+      onClose();
+      console.log(response.data);
+    } catch (error: any) {
+      setError(
+        error.response.data.displayMessage || "An error occurred while creating the exercise."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleInputChange}
-          placeholder="Exercise name"
-        />
-        <input
-          name="image"
-          type="file"
-          onChange={handleFileChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
+    <div className="overlay" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <h2>Create Exercise</h2>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        <form onSubmit={handleSubmit}>
+          <label>
+            Name:
+            <input
+              className="input"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+
+          <label>
+            Description:
+            <input
+              className="input"
+              type="text"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+
+          <label>
+            Sets:
+            <input
+              className="input"
+              type="number"
+              name="sets"
+              value={formData.sets}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+
+          <label>
+            Times:
+            <input
+              className="input"
+              type="number"
+              name="times"
+              value={formData.times}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+
+          <label>
+            Category:
+            <input
+              className="input"
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+
+          <label>
+            Status:
+            <input
+              className="input"
+              type="checkbox"
+              name="status"
+              checked={formData.status}
+              onChange={(e) => setFormData({ ...formData, status: e.target.checked })}
+            />
+          </label>
+
+          <label>
+            Image:
+            <input type="file" name="file" onChange={handleFileChange} />
+          </label>
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Creating..." : "Create Exercise"}
+          </button>
+          <button type="button" className="button cancelButton" onClick={onClose}>Cancel</button>
+        </form>
+      </div>
     </div>
   );
-}
+};
+
+export default CreateExercise;
