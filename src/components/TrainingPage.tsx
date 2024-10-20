@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import UpdateExercise from './UpdateExercise';
 import CreateExercise from './CreateExercise';
 import DeleteExercise from './DeleteExercise';
+import ExportExercise from './ExportExercise';
 
 const TrainingPage = () => {
 
@@ -71,6 +72,7 @@ const TrainingPage = () => {
   return (
     <div className="table-container">
       <button onClick={handleCreateClick}>create</button>
+      <ExportExercise/>
       <div className='search-modal'>
                     <div className="input-container">
                         <input type="text" placeholder="Search..." onChange={handleSearchUsers} className="search-input"/>
