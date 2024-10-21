@@ -64,6 +64,15 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
               training
             </Link>
           </li>
+          <li className="nav-list-item">
+            <Link
+              to="/recipes"
+              className={`nav-link ${location.pathname === '/recipes' ? 'nav-link-active' : ''}`}
+              onClick={onClose}
+            >
+              recipes
+            </Link>
+          </li>
         </ul>
         <button onClick={handleLogout} className="logout-button">
           <LogOut size={20} />
