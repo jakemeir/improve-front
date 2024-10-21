@@ -37,7 +37,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
           </Link>
         </div>
         <ul className="nav-list">
-        <li className="nav-list-item">
+          <li className="nav-list-item">
             <Link
               to="/quaetionnaire"
               className={`nav-link ${location.pathname === '/quaetionnaire' ? 'nav-link-active' : ''}`}
@@ -62,6 +62,15 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose, isMobile }) => {
               onClick={onClose}
             >
               training
+            </Link>
+          </li>
+          <li className="nav-list-item">
+            <Link
+              to="/recipes"
+              className={`nav-link ${location.pathname === '/recipes' ? 'nav-link-active' : ''}`}
+              onClick={onClose}
+            >
+              Recipes
             </Link>
           </li>
         </ul>

@@ -6,6 +6,7 @@ import UsersPage from './components/UsersPage';
 import Login from './components/Login';
 import TrainingPage from './components/TrainingPage';
 import QuaetionnaireLayout from './quaetionnaire/QuaetionnaireLayout';
+import RecipesPage from './components/recipesPage';
 
 const App: React.FC = () => {
 
@@ -16,6 +17,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/users" element={<UsersPage />} />
             <Route path="/trainings" element={<TrainingPage />} />
+            <Route path="/recipes" element={<RecipesPage />} />
             {/* Add other routes as needed */}
             <Route path="/" element={<div>IMPROVE PROJECT 2024</div>} />
             <Route path="/login" element={<Login />} />
