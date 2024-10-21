@@ -19,4 +19,11 @@ export interface User {
     imgPath: string;
   }
   
-  
+  export interface Recipe {
+    _id: string;
+    name: string;
+    description?: string;
+    imgPath: string;
+    ingredients: string[];
+    instruction: string;
+  }
