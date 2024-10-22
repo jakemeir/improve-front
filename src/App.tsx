@@ -6,7 +6,7 @@ import UsersPage from './components/UsersPage';
 import Login from './components/Login';
 import TrainingPage from './components/TrainingPage';
 import QuaetionnaireLayout from './quaetionnaire/QuaetionnaireLayout';
-import RecipesPage from './components/recipesPage';
+import RecipesPage from './components/RecipesPage';
 
 const App: React.FC = () => {
 
