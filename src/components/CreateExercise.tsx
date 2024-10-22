@@ -13,12 +13,11 @@ interface ExerciseFormData {
 }
 
 interface CreateExerciseProps {
-  isOpen: boolean;
   onClose: () => void;
   onSuccess: ()=> void;
 }
 
-const CreateExercise: React.FC<CreateExerciseProps> = ({ onClose, isOpen,onSuccess }) => {
+const CreateExercise: React.FC<CreateExerciseProps> = ({ onClose,onSuccess }) => {
   const [formData, setFormData] = useState<ExerciseFormData>({
     name: "",
     description: "",
@@ -53,20 +52,20 @@ const CreateExercise: React.FC<CreateExerciseProps> = ({ onClose, isOpen,onSucce
     e.preventDefault();
     setLoading(true);
     setError(null);
-
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("sets", formData.sets.toString());
-    formDataToSend.append("times", formData.times.toString());
-    formDataToSend.append("category", formData.category);
-    formDataToSend.append("status", formData.status.toString());
-
-    if (file) {
-      formDataToSend.append("image", file);
-    }
-
+  
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("sets", formData.sets.toString());
+      formDataToSend.append("times", formData.times.toString());
+      formDataToSend.append("category", formData.category);
+      formDataToSend.append("status", formData.status.toString());
+  
+      if (file) {
+        formDataToSend.append("image", file);
+      }
+  
       const response = await axios.post(
         `http://localhost:8080/exercises`,
         formDataToSend,
@@ -77,17 +76,21 @@ const CreateExercise: React.FC<CreateExerciseProps> = ({ onClose, isOpen,onSucce
           },
         }
       );
-      onSuccess()
+  
+      onSuccess();
       onClose();
       console.log(response.data);
+  
     } catch (error: any) {
       setError(
-        error.response.data.displayMessage || "An error occurred while creating the exercise."
+        error.response?.data.displayMessage || 
+        error.message || "An error occurred while creating the exercise."
       );
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="overlay" onClick={onClose}>

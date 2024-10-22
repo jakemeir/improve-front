@@ -110,7 +110,7 @@ const TrainingPage = () => {
         </tbody>
       </table>
       {isEditOpen&&<UpdateExercise onSuccess={fetchTrainingData} exerciseId={exerciseId} onClose={()=>{handleEditClick(exerciseId)}}  isOpen={isEditOpen}/>}
-        {isCreateOpen&&<CreateExercise onSuccess={fetchTrainingData} onClose={()=>{handleCreateClick()}} isOpen={isCreateOpen}/>}
+        {isCreateOpen&&<CreateExercise onSuccess={fetchTrainingData} onClose={()=>{handleCreateClick()}}/>}
         { isDeleteOpen&& <DeleteExercise onSuccess={fetchTrainingData} onClose={()=>{handleDeleteClick(exerciseId)}} exerciseId={exerciseId}/>}
     </div>
   )
