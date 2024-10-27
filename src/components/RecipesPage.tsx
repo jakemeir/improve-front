@@ -1,10 +1,10 @@
+import { PlusCircle, Edit, Trash2 } from 'lucide-react';
+import CreateRecipe from './CreatRecipe';
 import React, { useEffect, useState } from 'react'
 import { Recipe } from '../types/types';
-import { Edit, Trash2 } from 'lucide-react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 // import UpdateRecipe from './UpdateRecipe';
-// import CreateRecipe from './CreateRecipe';
 // import DeleteRecipe from './DeleteRecipe';
 import ExportRecipe from './ExportRecipe';
 
@@ -15,6 +15,7 @@ const RecipePage = () => {
   const [isCreateOpen, setIsCreateOpen] = useState<boolean>(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [recipeId, setRecipeId] = useState<string>('');
+  const [isCreateRecipeOpen, setIsCreateRecipeOpen] = React.useState(false);
 
   const fetchRecipeData = async () => {
     try {
@@ -42,7 +43,7 @@ const RecipePage = () => {
     setIsEditOpen(!isEditOpen);
   };
 
-  const handleDeleteClick = (recipeId: string) => { 
+  const handleDeleteClick = (recipeId: string) => {
     setRecipeId(recipeId);
     setIsDeleteOpen(!isDeleteOpen);
   };
@@ -64,9 +65,19 @@ const RecipePage = () => {
     }
   }
 
+  const handleCreateRecipe = () => {
+    setIsCreateRecipeOpen(true);
+  };
+
   return (
     <div className="table-container">
-      <button onClick={handleCreateClick}>Create</button>
+      <div className="recipe-controls">
+        <button className="add-button" onClick={handleCreateRecipe}>
+          <PlusCircle size={20} className="add-button-icon" />
+          Add New Recipe
+        </button>
+        <CreateRecipe isOpen={isCreateRecipeOpen} onClose={() => setIsCreateRecipeOpen(false)} />
+      </div>
       <ExportRecipe />
       <div className='search-modal'>
         <div className="input-container">
