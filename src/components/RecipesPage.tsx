@@ -12,7 +12,6 @@ const RecipePage = () => {
 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
-  const [isCreateOpen, setIsCreateOpen] = useState<boolean>(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [recipeId, setRecipeId] = useState<string>('');
   const [isCreateRecipeOpen, setIsCreateRecipeOpen] = React.useState(false);
@@ -33,10 +32,6 @@ const RecipePage = () => {
   useEffect(() => {
     fetchRecipeData();
   }, []);
-
-  const handleCreateClick = () => {
-    setIsCreateOpen(!isCreateOpen);
-  };
 
   const handleEditClick = (recipeId: string) => {
     setRecipeId(recipeId);
@@ -112,7 +107,6 @@ const RecipePage = () => {
         </tbody>
       </table>
       {/* {isEditOpen && <UpdateRecipe onSuccess={fetchRecipeData} recipeId={recipeId} onClose={() => handleEditClick(recipeId)} isOpen={isEditOpen} />}
-      {isCreateOpen && <CreateRecipe onSuccess={fetchRecipeData} onClose={() => handleCreateClick()} isOpen={isCreateOpen} />}
       {isDeleteOpen && <DeleteRecipe onSuccess={fetchRecipeData} onClose={() => handleDeleteClick(recipeId)} recipeId={recipeId} />} */}
     </div>
   )
