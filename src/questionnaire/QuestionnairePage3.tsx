@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-interface QuaetionnairePage3Props {
+interface QuestionnairePage3Props {
   onCompletion: (isComplete: boolean) => void;
 }
 
-const QuaetionnairePage3: React.FC<QuaetionnairePage3Props> = ({ onCompletion }) => {
+const QuestionnairePage3: React.FC<QuestionnairePage3Props> = ({ onCompletion }) => {
   const [physicalCondition, setPhysicalCondition] = useState<string | null>(null);
 
   const isPage3Complete = !!physicalCondition;
@@ -64,4 +64,4 @@ const QuaetionnairePage3: React.FC<QuaetionnairePage3Props> = ({ onCompletion })
   );
 };
 
-export default QuaetionnairePage3;
+export default QuestionnairePage3;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-interface QuaetionnairePage4Props {
+interface QuestionnairePage4Props {
   onCompletion: (isComplete: boolean) => void;
 }
 
-const QuaetionnairePage4: React.FC<QuaetionnairePage4Props> = ({ onCompletion }) => {
+const QuestionnairePage4: React.FC<QuestionnairePage4Props> = ({ onCompletion }) => {
   const [mantra, setMantra] = useState<string | null>(null);
 
   const isPage4Complete = !!mantra;
@@ -17,7 +17,7 @@ const QuaetionnairePage4: React.FC<QuaetionnairePage4Props> = ({ onCompletion })
     <div className="page4-container">
       <form>
         <fieldset>
-          <legend>What are the goals you want to achive?</legend>
+          <legend>What are the goals you want to achieve?</legend>
           <div>
             <input
               type="radio"
@@ -46,7 +46,7 @@ const QuaetionnairePage4: React.FC<QuaetionnairePage4Props> = ({ onCompletion })
               value="mass"
               onChange={() => setMantra('mass')}
             />
-            <label htmlFor="mass">inceasing muscle mass</label>
+            <label htmlFor="mass">increase muscle mass</label>
           </div>
           <div>
             <input
@@ -64,4 +64,4 @@ const QuaetionnairePage4: React.FC<QuaetionnairePage4Props> = ({ onCompletion })
   );
 };
 
-export default QuaetionnairePage4;
+export default QuestionnairePage4;
