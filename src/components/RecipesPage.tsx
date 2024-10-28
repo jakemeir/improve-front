@@ -5,7 +5,7 @@ import { Recipe } from '../types/types';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 // import UpdateRecipe from './UpdateRecipe';
-// import DeleteRecipe from './DeleteRecipe';
+import DeleteRecipe from './DeleteRecipe'
 import ExportRecipe from './ExportRecipe';
 
 const RecipePage = () => {
@@ -106,8 +106,8 @@ const RecipePage = () => {
           ))}
         </tbody>
       </table>
-      {/* {isEditOpen && <UpdateRecipe onSuccess={fetchRecipeData} recipeId={recipeId} onClose={() => handleEditClick(recipeId)} isOpen={isEditOpen} />}
-      {isDeleteOpen && <DeleteRecipe onSuccess={fetchRecipeData} onClose={() => handleDeleteClick(recipeId)} recipeId={recipeId} />} */}
+      {/* {isEditOpen && <UpdateRecipe onSuccess={fetchRecipeData} recipeId={recipeId} onClose={() => handleEditClick(recipeId)} isOpen={isEditOpen} />} */}
+      {isDeleteOpen && <DeleteRecipe onSuccess={fetchRecipeData} onClose={() => handleDeleteClick(recipeId)} recipeId={recipeId} />}
     </div>
   )
 }
