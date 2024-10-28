@@ -71,7 +71,7 @@ const RecipePage = () => {
           <PlusCircle size={20} className="add-button-icon" />
           Add New Recipe
         </button>
-        <CreateRecipe isOpen={isCreateRecipeOpen} onClose={() => setIsCreateRecipeOpen(false)} />
+        <CreateRecipe isOpen={isCreateRecipeOpen} onClose={() => setIsCreateRecipeOpen(false)} onSuccess={fetchRecipeData}/>
       </div>
       <ExportRecipe />
       <div className='search-modal'>
