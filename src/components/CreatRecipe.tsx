@@ -6,8 +6,9 @@ import '../style/CreateRecipe.css';
 interface Props {
     isOpen: boolean;
     onClose: () => void;
+    onSuccess: ()=>void;
 }
-const CreateRecipe: React.FC<Props> = ({ isOpen, onClose }) => {
+const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [ingredients, setIngredients] = useState(['']);
@@ -57,7 +58,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose }) => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/recipe', formData, {
+            const response = await axios.post('http://localhost:8080/recipes', formData, {
                 headers: {
                     "Authorization": Cookies.get('token'),
                     'Content-Type': 'multipart/form-data',
@@ -71,6 +72,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose }) => {
             setImgPath(null);
             setErrors('');
             onClose();
+            onSuccess();
         } catch (error: any) {
             if (error.response) {
                 console.error('Failed to submit form:', error.response.data);

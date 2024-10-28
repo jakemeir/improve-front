@@ -3,17 +3,17 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import '../style/DeleteConfirmation.css';
 
-interface DeleteCProps {
-    exerciseId:string;
+interface DeleteRProps {
+    recipeId:string;
     onClose: () => void;
     onSuccess: ()=> void;
 }
   
-  const DeleteExercise:React.FC<DeleteCProps> = ({onClose,exerciseId,onSuccess}) => {
+  const DeleteRecipe:React.FC<DeleteRProps> = ({onClose,recipeId,onSuccess}) => {
 
-    const deleteExercise= async () => {
+    const deleteRecipeHandler = async () => {
         try {
-          await axios.delete(`http://localhost:8080/exercises/${exerciseId}`, {
+          await axios.delete(`http://localhost:8080/recipes/${recipeId}`, {
             headers: {
               "Authorization": Cookies.get('token'),
             },
@@ -21,7 +21,7 @@ interface DeleteCProps {
           onSuccess()
           onClose();
         } catch (error) {
-          console.error('Error deleting user:', error);
+          console.error('Error deleting recipe:', error);
         }
       };
 
@@ -30,13 +30,13 @@ interface DeleteCProps {
         <div className="delete-confirmation-dialog">
           <h2 className="delete-confirmation-title">Confirm Deletion</h2>
           <p className="delete-confirmation-description">
-            Are you sure you want to delete this exercise? This action cannot be undone.
+            Are you sure you want to delete this recipe? This action cannot be undone.
           </p>
           <div className="delete-confirmation-buttons">
             <button onClick={onClose} className="delete-confirmation-cancel">
               Cancel
             </button>
-            <button onClick={deleteExercise} className="delete-confirmation-delete">
+            <button onClick={deleteRecipeHandler} className="delete-confirmation-delete">
               Delete
             </button>
           </div>
@@ -46,4 +46,4 @@ interface DeleteCProps {
 
   }
   
-  export default DeleteExercise
+  export default DeleteRecipe;
