@@ -4,11 +4,11 @@ import CreateUser from '../components/CreateUser';
 import { LogIn } from 'lucide-react';
 import Login from '../components/Login';
 
-interface QuaetionnairePage5Props {
+interface QuestionnairePage5Props {
   onCompletion: (isComplete: boolean) => void;
 }
 
-const QuaetionnairePage5: React.FC<QuaetionnairePage5Props> = ({ onCompletion }) => {
+const QuestionnairePage5: React.FC<QuestionnairePage5Props> = ({ onCompletion }) => {
   const [createUser, setCreateUser] = useState<string | null>(null);
 
   const isPage5Complete = !!createUser;
@@ -20,10 +20,10 @@ const QuaetionnairePage5: React.FC<QuaetionnairePage5Props> = ({ onCompletion })
   return (
     <div className="page5-container">
       <form>
-           <Login/> 
+           <CreateUser onClose={()=>{}} isOpen={true}/> 
       </form>
     </div>
   );
 };
 
-export default QuaetionnairePage5;
+export default QuestionnairePage5;

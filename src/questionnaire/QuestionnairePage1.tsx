@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-interface QuaetionnairePage1Props {
+interface QuestionnairePage1Props {
   onCompletion: (isComplete: boolean) => void;
 }
 
-const QuaetionnairePage1: React.FC<QuaetionnairePage1Props> = ({ onCompletion }) => {
+const QuestionnairePage1: React.FC<QuestionnairePage1Props> = ({ onCompletion }) => {
   const [gender, setGender] = useState<string | null>(null);
   const [weight, setWeight] = useState<string>('');
   const [height, setHeight] = useState<string>('');
@@ -104,4 +104,4 @@ const QuaetionnairePage1: React.FC<QuaetionnairePage1Props> = ({ onCompletion })
   );
 };
 
-export default QuaetionnairePage1;
+export default QuestionnairePage1;

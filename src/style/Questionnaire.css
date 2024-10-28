@@ -1,6 +1,6 @@
 /* Questionnaire.css */
 
-.quaetionnaire-container {
+.questionnaire-container {
     max-width: 600px; /* Limit the width of the form */
     margin: 20px auto; /* Center the form */
     padding: 20px; /* Add padding */
@@ -8,61 +8,60 @@
     border-radius: 10px; /* Round the corners */
     background-color: #f9f9f9; /* Light background color */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  }
-  
-  .quaetionnaire-tags {
+}
+
+.questionnaire-tags {
     margin-bottom: 20px; /* Space between questions and navigation */
-  }
-  
-  .page1-container,
-  .page2-container,
-  .page3-container {
+}
+
+.page1-container,
+.page2-container,
+.page3-container {
     margin-bottom: 20px; /* Space between sections */
-  }
-  
-  fieldset {
+}
+
+fieldset {
     border: none; /* Remove default fieldset border */
     margin: 10px 0; /* Margin for spacing */
-  }
-  
-  legend {
+}
+
+legend {
     font-weight: bold; /* Bold legend text */
     font-size: 1.2em; /* Increase font size */
     margin-bottom: 10px; /* Space below the legend */
-  }
-  
-  label {
+}
+
+label {
     margin-left: 10px; /* Space between radio/checkbox and label */
     font-size: 1em; /* Standard font size */
-  }
-  
-  input[type="text"],
-  input[type="radio"] {
+}
+
+input[type='text'],
+input[type='radio'] {
     margin-right: 5px; /* Space between input and label */
-  }
-  
-  /* Style for navigation buttons */
-  .navigation-buttons {
+}
+
+/* Style for navigation buttons */
+.navigation-buttons {
     display: flex; /* Use flexbox for button layout */
     justify-content: space-between; /* Space between buttons */
-  }
-  
-  button {
+}
+
+button {
     padding: 10px 15px; /* Padding for buttons */
     border: none; /* Remove default border */
     border-radius: 5px; /* Round corners */
-    background-color: #007BFF; /* Primary button color */
+    background-color: #007bff; /* Primary button color */
     color: white; /* Button text color */
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s; /* Smooth background color transition */
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #0056b3; /* Darken button on hover */
-  }
-  
-  button:disabled {
+}
+
+button:disabled {
     background-color: #ccc; /* Gray out disabled button */
     cursor: not-allowed; /* Not-allowed cursor for disabled */
-  }
-  
+}
