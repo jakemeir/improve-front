@@ -102,7 +102,7 @@ const UsersPage: React.FC = () => {
                     Add New User
                 </button>
                 <ExportUserButton />
-                <CreateUser isOpen={isCreateUserOpen} onClose={() => setIsCreateUserOpen(false)} />
+                <CreateUser isOpen={isCreateUserOpen} onClose={() => setIsCreateUserOpen(false)} additionalData='' />
                 <div className='search-modal'>
                     <div className="input-container">
                         <input type="text" placeholder="Search..." onChange={handleSearchUsers} className="search-input"/>

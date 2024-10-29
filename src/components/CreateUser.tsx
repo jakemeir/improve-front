@@ -8,9 +8,10 @@ import Login from './Login';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  additionalData:string;
 }
 
-const CreateUser: React.FC<Props> = ({ isOpen, onClose }) => {
+const CreateUser: React.FC<Props> = ({ isOpen, onClose, additionalData }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,6 +27,8 @@ const CreateUser: React.FC<Props> = ({ isOpen, onClose }) => {
     event.preventDefault();
     setErrors("");
     setIsSubmitting(true);
+    console.log(additionalData);
+    
 
     const formData = {
       firstName,
@@ -33,6 +36,7 @@ const CreateUser: React.FC<Props> = ({ isOpen, onClose }) => {
       email,
       phone,
       password,
+      additionalData
     };
 
     try {
