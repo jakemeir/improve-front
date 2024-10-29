@@ -52,54 +52,61 @@ const QuestionnairePage1: React.FC<QuestionnairePage1Props> = ({ onCompletion })
 
   return (
     <div className='page1-container'>
-      <div>
-        <label>נקבה</label>
-        <input type="radio" name="gender" value="female" onChange={() => setGender('female')} />
-        <label>זכר</label>
-        <input type="radio" name="gender" value="male" onChange={() => setGender('male')} />
-      </div>
 
-      <div>
-        <label>משקל</label>
-        <input
-          type="number"
-          placeholder="ק'ג"
-          value={weight}
-          onChange={(e) => {
-            setWeight(e.target.value);
-            validateWeight(e.target.value);
-          }}
-        />
-        {errors.weight && <p className="error-message">{errors.weight}</p>}
-      </div>
+<form>
+<div>
 
-      <div>
-        <label>גובה</label>
-        <input
-          type="number"
-          placeholder="ס'מ"
-          value={height}
-          onChange={(e) => {
-            setHeight(e.target.value);
-            validateHeight(e.target.value);
-          }}
-        />
-        {errors.height && <p className="error-message">{errors.height}</p>}
-      </div>
+<label>נקבה</label>
+<input type="radio" name="gender" value="female" onChange={() => setGender('female')} />
+<label>זכר</label>
+<input type="radio" name="gender" value="male" onChange={() => setGender('male')} />
+</div>
 
-      <div>
-        <label>שנת לידה</label>
-        <input
-          type="number"
-          placeholder="שנה"
-          value={birthYear}
-          onChange={(e) => {
-            setBirthYear(e.target.value);
-            validateBirthYear(e.target.value);
-          }}
-        />
-        {errors.birthYear && <p className="error-message">{errors.birthYear}</p>}
-      </div>
+<div>
+<label>משקל</label>
+<input
+  type="number"
+  placeholder="ק'ג"
+  value={weight}
+  onChange={(e) => {
+    setWeight(e.target.value);
+    validateWeight(e.target.value);
+  }}
+/>
+{errors.weight && <p className="error-message">{errors.weight}</p>}
+</div>
+
+<div>
+<label>גובה</label>
+<input
+  type="number"
+  placeholder="ס'מ"
+  value={height}
+  onChange={(e) => {
+    setHeight(e.target.value);
+    validateHeight(e.target.value);
+  }}
+/>
+{errors.height && <p className="error-message">{errors.height}</p>}
+</div>
+
+<div>
+<label>שנת לידה</label>
+<input
+  type="number"
+  placeholder="שנה"
+  value={birthYear}
+  onChange={(e) => {
+    setBirthYear(e.target.value);
+    validateBirthYear(e.target.value);
+  }}
+/>
+
+</div>
+
+</form>
+
+      {errors.birthYear && <p className="error-message">{errors.birthYear}</p>}
     </div>
   );
 };
