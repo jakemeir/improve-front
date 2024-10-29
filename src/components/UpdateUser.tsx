@@ -26,10 +26,13 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
 
     // Fetch user data from API
     const fetchUserData = async () => {
-        try{
-            const response = await axios.get(`http://localhost:8080/users/${userId}`,{headers:{
-                "Authorization":Cookies.get('token')
-            },});
+        try {
+            const response = await axios.get(`http://localhost:8080/users/${userId}`,
+                {
+                    headers: {
+                        "Authorization": Cookies.get('token')
+                    },
+                });
             setUser(response.data.data);
         } catch (error) {
             console.error('Error fetching user data:', error);
@@ -39,7 +42,7 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
     // User details
     const [user, setUser] = useState<any>(null);
     // Checks if a change has been made (dirt)
-    const [isDirty, setIsDirty] = useState(false);
+    const [isDirty, setIsDirty] = useState<boolean>(false);
     // Error messages for each field
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -96,10 +99,6 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
         if (!validator.isMobilePhone(phone, 'he-IL')) {
             newErrors.phone = "Please enter a valid phone number.";
         }
-        // console.log(validator.isMobilePhone(phone, 'he-IL'))
-        // if (!validator.isLength(password, { min: 6 })) {
-        //     newErrors.password = "Password must be at least 6 characters.";
-        // }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -114,7 +113,7 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
                     headers: {
                         "Authorization": Cookies.get('token')
                     }
-                });
+                }); 
                 console.log('Updated user:', updatedUser);
                 setIsDirty(false);
                 onClose();
@@ -163,13 +162,6 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
                     <input className="input" type="tel" name='phone' value={user.phone} onChange={handleUpdate} placeholder="Phone" />
                     {errors.phone && <span className="error">{errors.phone}</span>}
                 </div>
-
-                {/* <div className="form-group">
-                    <label htmlFor='password'>Password</label>
-                    <input className="input" type="password" name='password' value={user.password} onChange={handleUpdate} placeholder="Password" />
-                    {errors.password && <span className="error">{errors.password}</span>}
-                </div> */}
-
                 <div className="form-group">
                     <label htmlFor='role'>Role</label>
                     <input className="input" type="text" name='role' value={user.role} onChange={handleUpdate} placeholder="Role" />

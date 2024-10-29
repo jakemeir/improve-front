@@ -40,22 +40,22 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
         setIngredients(newIngredients);
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setErrors("");
-        setIsSubmitting(true);
+        const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            setErrors("");
+            setIsSubmitting(true);
 
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('description', description);
-        ingredients.forEach((ingredient, index) => {
-            formData.append(`ingredients[${index}]`, ingredient);
-        });
-        formData.append('instruction', instruction);
-        formData.append('type', 'recipe');
-        if (imgPath) {
-            formData.append('image', imgPath);
-        };
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('description', description);
+            ingredients.forEach((ingredient, index) => {
+                formData.append(`ingredients[${index}]`, ingredient);
+            });
+            formData.append('instruction', instruction);
+            formData.append('type', 'recipe');
+            if (imgPath) {
+                formData.append('image', imgPath);
+            };
 
         try {
             const response = await axios.post('http://localhost:8080/recipes', formData, {
