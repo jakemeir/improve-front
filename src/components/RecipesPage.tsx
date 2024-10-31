@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { Recipe } from '../types/types';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-// import UpdateRecipe from './UpdateRecipe';
+import UpdateRecipe from './UpdateRecipe';
 import DeleteRecipe from './DeleteRecipe'
 import ExportRecipe from './ExportRecipe';
+import '../style/RecipesPage.css'
 
 const RecipePage = () => {
 
@@ -66,14 +67,16 @@ const RecipePage = () => {
 
   return (
     <div className="table-container">
-      <div className="recipe-controls">
-        <button className="add-button" onClick={handleCreateRecipe}>
-          <PlusCircle size={20} className="add-button-icon" />
-          Add New Recipe
-        </button>
-        <CreateRecipe isOpen={isCreateRecipeOpen} onClose={() => setIsCreateRecipeOpen(false)} onSuccess={fetchRecipeData}/>
+      <div className='buttons'>
+        <div className="recipe-controls">
+          <button className="add-button" onClick={handleCreateRecipe}>
+            <PlusCircle size={20} className="add-button-icon" />
+            Add New Recipe
+          </button>
+          <CreateRecipe isOpen={isCreateRecipeOpen} onClose={() => setIsCreateRecipeOpen(false)} onSuccess={fetchRecipeData} />
+        </div>
+        <ExportRecipe />
       </div>
-      <ExportRecipe />
       <div className='search-modal'>
         <div className="input-container">
           <input type="text" placeholder="Search..." onChange={handleSearchRecipes} className="search-input" />
@@ -106,7 +109,7 @@ const RecipePage = () => {
           ))}
         </tbody>
       </table>
-      {/* {isEditOpen && <UpdateRecipe onSuccess={fetchRecipeData} recipeId={recipeId} onClose={() => handleEditClick(recipeId)} isOpen={isEditOpen} />} */}
+      {isEditOpen && <UpdateRecipe onSuccess={fetchRecipeData} recipeId={recipeId} onClose={() => handleEditClick(recipeId)} isOpen={isEditOpen} />}
       {isDeleteOpen && <DeleteRecipe onSuccess={fetchRecipeData} onClose={() => handleDeleteClick(recipeId)} recipeId={recipeId} />}
     </div>
   )

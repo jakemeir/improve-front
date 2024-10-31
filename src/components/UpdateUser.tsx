@@ -15,6 +15,7 @@ import validator from 'validator';
 import '../style/UpdateUser.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { User } from '../types/types';
 
 interface Props {
     isOpen: boolean;
@@ -62,7 +63,7 @@ const UpdateUser: React.FC<Props> = ({ isOpen, onClose, userId }) => {
 
     const handleUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setUser((prevUser: any) => ({ ...prevUser, [name]: value }))
+        setUser((prevUser: User) => ({ ...prevUser, [name]: value }))
         setIsDirty(true);
     }
 
