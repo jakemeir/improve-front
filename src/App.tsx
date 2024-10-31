@@ -6,6 +6,7 @@ import UsersPage from './components/UsersPage';
 import Login from './components/Login';
 import TrainingPage from './components/TrainingPage';
 import QuestionnaireLayout from './questionnaire/QuestionnaireLayout';
+import QuestLayout from './components/questionnaire2/questLayout';
 import RecipesPage from './components/RecipesPage';
 
 const App: React.FC = () => {
@@ -21,7 +22,7 @@ const App: React.FC = () => {
             {/* Add other routes as needed */}
             <Route path="/" element={<div>IMPROVE PROJECT 2024</div>} />
             <Route path="/login" element={<Login />} />
-            <Route path="/questionnaire" element={<QuestionnaireLayout/>} />
+            <Route path="/questionnaire" element={<QuestLayout/>} />
           </Routes>
         </Layout>
       </Router>
