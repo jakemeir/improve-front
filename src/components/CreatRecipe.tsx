@@ -6,9 +6,9 @@ import '../style/CreateRecipe.css';
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    onSuccess: ()=>void;
+    onSuccess: () => void;
 }
-const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
+const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [ingredients, setIngredients] = useState(['']);
@@ -16,6 +16,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
     const [imgPath, setImgPath] = useState<File | null>(null);
     const [errors, setErrors] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isDirty, setIsDirty] = useState<boolean>(false);
 
     if (!isOpen) return null;
 
@@ -40,22 +41,33 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
         setIngredients(newIngredients);
     };
 
-        const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            setErrors("");
-            setIsSubmitting(true);
+    const handleCancel = () => {
+        setName('');
+        setDescription('');
+        setIngredients(['']);
+        setInstruction('');
+        setImgPath(null);
+        setErrors('');
+        setIsDirty(false);
+        onClose();
+    };
 
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('description', description);
-            ingredients.forEach((ingredient, index) => {
-                formData.append(`ingredients[${index}]`, ingredient);
-            });
-            formData.append('instruction', instruction);
-            formData.append('type', 'recipe');
-            if (imgPath) {
-                formData.append('image', imgPath);
-            };
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setErrors("");
+        setIsSubmitting(true);
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        ingredients.forEach((ingredient, index) => {
+            formData.append(`ingredients[${index}]`, ingredient);
+        });
+        formData.append('instruction', instruction);
+        formData.append('type', 'recipe');
+        if (imgPath) {
+            formData.append('image', imgPath);
+        };
 
         try {
             const response = await axios.post('http://localhost:8080/recipes', formData, {
@@ -123,8 +135,8 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
                                     onChange={(e) => handleIngredientChange(index, e.target.value)}
                                     placeholder="Enter Ingredient"
                                 />
-                                <button type="button" onClick={() => removeIngredient(index)}>
-                                    Remove
+                                <button type="button" onClick={() => removeIngredient(index)} className="Remove-row">
+                                    Remove ingredient
                                 </button>
                             </div>
                         ))}
@@ -149,10 +161,10 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
                             onChange={handleImageChange}
                             required
                         />
+                    </div> <div>
+                        <button type="submit" className={`button saveButton ${!isDirty ? 'disabled' : ''}`} disabled={!isDirty || isSubmitting}>{isSubmitting ? 'Submitting...' : 'Save'}</button>
+                        <button className="button cancelButton" onClick={handleCancel}>cancel</button>
                     </div>
-                    <button type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? 'Submitting...' : 'Add Recipe'}
-                    </button>
                     {errors && <p className="error-message">{errors}</p>}
                 </form>
             </div>
