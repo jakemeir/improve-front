@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../style/CreateRecipe.css';
 
 interface Props {
@@ -18,11 +18,19 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDirty, setIsDirty] = useState<boolean>(false);
 
+    useEffect(() => {
+        if (isOpen) {
+            setIsDirty(false);
+            setErrors('');
+        }
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             setImgPath(event.target.files[0]);
+            setIsDirty(true);
         }
     };
 
@@ -39,6 +47,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
         const newIngredients = [...ingredients];
         newIngredients[index] = value;
         setIngredients(newIngredients);
+        setIsDirty(true);
     };
 
     const handleCancel = () => {
@@ -109,7 +118,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
                             type="text"
                             id="name"
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => { setName(e.target.value); setIsDirty(true); }}
                             placeholder="Recipe Name"
                             required
                         />
@@ -120,7 +129,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
                             type="text"
                             id="description"
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={(e) => { setDescription(e.target.value); setIsDirty(true); }}
                             placeholder="Short Description"
                             required
                         />
@@ -147,7 +156,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
                         <textarea
                             id="instruction"
                             value={instruction}
-                            onChange={(e) => setInstruction(e.target.value)}
+                            onChange={(e) => { setInstruction(e.target.value); setIsDirty(true); }}
                             placeholder="Enter Instructions"
                             required
                         />

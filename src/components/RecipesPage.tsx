@@ -1,5 +1,5 @@
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
-import CreateRecipe from './CreatRecipe';
+import CreateRecipe from './CreateRecipe';
 import React, { useEffect, useState } from 'react'
 import { Recipe } from '../types/types';
 import axios from 'axios';
