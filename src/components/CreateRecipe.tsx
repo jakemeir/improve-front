@@ -1,14 +1,14 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../style/CreateRecipe.css';
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    onSuccess: ()=>void;
+    onSuccess: () => void;
 }
-const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
+const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [ingredients, setIngredients] = useState(['']);
@@ -16,12 +16,21 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
     const [imgPath, setImgPath] = useState<File | null>(null);
     const [errors, setErrors] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isDirty, setIsDirty] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            setIsDirty(false);
+            setErrors('');
+        }
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             setImgPath(event.target.files[0]);
+            setIsDirty(true);
         }
     };
 
@@ -38,6 +47,18 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
         const newIngredients = [...ingredients];
         newIngredients[index] = value;
         setIngredients(newIngredients);
+        setIsDirty(true);
+    };
+
+    const handleCancel = () => {
+        setName('');
+        setDescription('');
+        setIngredients(['']);
+        setInstruction('');
+        setImgPath(null);
+        setErrors('');
+        setIsDirty(false);
+        onClose();
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -97,7 +118,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
                             type="text"
                             id="name"
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => { setName(e.target.value); setIsDirty(true); }}
                             placeholder="Recipe Name"
                             required
                         />
@@ -108,7 +129,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
                             type="text"
                             id="description"
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={(e) => { setDescription(e.target.value); setIsDirty(true); }}
                             placeholder="Short Description"
                             required
                         />
@@ -123,8 +144,8 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
                                     onChange={(e) => handleIngredientChange(index, e.target.value)}
                                     placeholder="Enter Ingredient"
                                 />
-                                <button type="button" onClick={() => removeIngredient(index)}>
-                                    Remove
+                                <button type="button" onClick={() => removeIngredient(index)} className="Remove-row">
+                                    Remove ingredient
                                 </button>
                             </div>
                         ))}
@@ -135,7 +156,7 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
                         <textarea
                             id="instruction"
                             value={instruction}
-                            onChange={(e) => setInstruction(e.target.value)}
+                            onChange={(e) => { setInstruction(e.target.value); setIsDirty(true); }}
                             placeholder="Enter Instructions"
                             required
                         />
@@ -149,10 +170,10 @@ const CreateRecipe: React.FC<Props> = ({ isOpen, onClose, onSuccess}) => {
                             onChange={handleImageChange}
                             required
                         />
+                    </div> <div>
+                        <button type="submit" className={`button saveButton ${!isDirty ? 'disabled' : ''}`} disabled={!isDirty || isSubmitting}>{isSubmitting ? 'Submitting...' : 'Save'}</button>
+                        <button className="button cancelButton" onClick={handleCancel}>cancel</button>
                     </div>
-                    <button type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? 'Submitting...' : 'Add Recipe'}
-                    </button>
                     {errors && <p className="error-message">{errors}</p>}
                 </form>
             </div>
