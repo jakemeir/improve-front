@@ -11,9 +11,9 @@ import ExportExercise from './ExportExercise';
 const TrainingPage = () => {
 
   const [training, setTraining] = useState<Train[]>([]);
-  const [isEditOpen,setIsEditOpen] = useState<boolean>(false)
-  const [isCreateOpen,setIsCreateOpen] = useState<boolean>(false)
-  const [isDeleteOpen,setIsDeleteOpen] = useState<boolean>(false)
+  const [isEditOpen, setIsEditOpen] = useState<boolean>(false)
+  const [isCreateOpen, setIsCreateOpen] = useState<boolean>(false)
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false)
   const [exerciseId, setExerciseId] = useState<string>('')
 
   const fetchTrainingData = async () => {
@@ -43,41 +43,43 @@ const TrainingPage = () => {
     setIsEditOpen(!isEditOpen)
 
   };
-  const handleDeleteClick = (trainId: string) => { 
-     setExerciseId(trainId);
-     setIsDeleteOpen(!isDeleteOpen);
+  const handleDeleteClick = (trainId: string) => {
+    setExerciseId(trainId);
+    setIsDeleteOpen(!isDeleteOpen);
   };
 
-  const handleSearchUsers = async (e:React.ChangeEvent<HTMLInputElement>) =>{
+  const handleSearchUsers = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      const response = await axios.get('http://localhost:8080/exercises',{
-        headers:{
-            "Authorization":Cookies.get('token')
+      const response = await axios.get('http://localhost:8080/exercises', {
+        headers: {
+          "Authorization": Cookies.get('token')
         },
-        params:{
-            q:e.target.value
+        params: {
+          q: e.target.value
         }
-  
-    });
-  
-    setTraining(response.data.data)
-      
+
+      });
+
+      setTraining(response.data.data)
+
     } catch (error) {
       console.log(error);
-      
+
     }
   }
 
 
   return (
     <div className="table-container">
-      <button onClick={handleCreateClick}>create</button>
-      <ExportExercise/>
-      <div className='search-modal'>
-                    <div className="input-container">
-                        <input type="text" placeholder="Search..." onChange={handleSearchUsers} className="search-input"/>
-                    </div>
-                </div>
+      <div className='buttons'>
+        <button onClick={handleCreateClick} className='add-button'>create</button>
+        <ExportExercise />
+        <div className='search-modal'>
+          <div className="input-container">
+            <input type="text" placeholder="Search..." onChange={handleSearchUsers} className="search-input" />
+          </div>
+        </div>
+      </div>
       <table className="table">
         <thead>
           <tr className="table-header">
@@ -100,7 +102,7 @@ const TrainingPage = () => {
               <td className="table-cell">{train.times}</td>
               <td className="table-cell">{train.category}</td>
               <td className="table-cell">{train.status ? 'Active' : 'Inactive'}</td>
-              <td className="table-cell"><img src={`http://localhost:8080/${train.imgPath}`} style={{width:100}} alt="Exercise" /></td>
+              <td className="table-cell"><img src={`http://localhost:8080/${train.imgPath}`} style={{ width: 100 }} alt="Exercise" /></td>
               <td className="table-cell">
                 <button onClick={() => handleEditClick(train._id)} className="action-button"><Edit size={16} /></button>
                 <button onClick={() => handleDeleteClick(train._id)} className="delete-button"><Trash2 size={16} /></button>
@@ -109,9 +111,9 @@ const TrainingPage = () => {
           ))}
         </tbody>
       </table>
-      {isEditOpen&&<UpdateExercise onSuccess={fetchTrainingData} exerciseId={exerciseId} onClose={()=>{handleEditClick(exerciseId)}}  isOpen={isEditOpen}/>}
-        {isCreateOpen&&<CreateExercise onSuccess={fetchTrainingData} onClose={()=>{handleCreateClick()}}/>}
-        { isDeleteOpen&& <DeleteExercise onSuccess={fetchTrainingData} onClose={()=>{handleDeleteClick(exerciseId)}} exerciseId={exerciseId}/>}
+      {isEditOpen && <UpdateExercise onSuccess={fetchTrainingData} exerciseId={exerciseId} onClose={() => { handleEditClick(exerciseId) }} isOpen={isEditOpen} />}
+      {isCreateOpen && <CreateExercise onSuccess={fetchTrainingData} onClose={() => { handleCreateClick() }} />}
+      {isDeleteOpen && <DeleteExercise onSuccess={fetchTrainingData} onClose={() => { handleDeleteClick(exerciseId) }} exerciseId={exerciseId} />}
     </div>
   )
 }
